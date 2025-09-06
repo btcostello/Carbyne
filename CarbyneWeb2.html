@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_forward_ios" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=visibility" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=visibility_off" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=print" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=save" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=find_replace" />
     <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
@@ -44,10 +47,10 @@
 
       <main class="container">
 
-        <div class="form-group" style="margin-top: 10px; margin-bottom: 20px; display: flex; gap: 15px;">
-          <button id="printReport" class="aks-btn aks-btn-secondary">Print Report</button>
-          <button id="saveCaseButton" class="save-button aks-btn aks-btn-primary">Save Case</button>
-          <button id="loadCaseButton" class="load-button aks-btn aks-btn-secondary">Load Case</button>
+        <div class="form-group aks-actions-wrapper aks-display-flex">
+          <button id="printReport" class="aks-btn"><span class="aks-icon"></span>Print Report</button>
+          <button id="saveCaseButton" class="save-button aks-btn"><span class="aks-icon"></span>Save Case</button>
+          <button id="loadCaseButton" class="load-button aks-btn"><span class="aks-icon"></span>Load Case</button>
         </div>
         <input type="file" id="loadCaseFile" accept=".json" style="display: none;">
 
@@ -286,7 +289,7 @@
             </section>
           </div>
         </div>
-        <button id="toggleDrawer" class="aks-btn" type="button" aria-label="Open Drawer" aria-controls="drawer" aria-expanded="false"><span class="material-symbols-outlined">arrow_forward_ios</span></button>
+        <button id="toggleDrawer" class="aks-btn" type="button" aria-label="Open Drawer" aria-controls="drawer" aria-expanded="false"><span class="aks-icon aks-icon-arrow-forward" aria-hidden="true"></span></button>
         <aside id="drawer" class="aks-drawer" aria-hidden="true">
           <div class="drawer-inner">
             <h2 class="drawer-h2">Carbyne Allocation&trade; Explained</h2>

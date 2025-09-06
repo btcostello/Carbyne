@@ -2,11 +2,12 @@
   VARIABLES
 *************************/
 :root {
-  --link-color: #2c3e50;
+  --link-color: #0075c1;
   --link-color-hover: #3498db;
   --text-color: #333;
   --accent-color: #2980b9;
   --color-gray-light: whitesmoke;
+  --color-navy: #2c3e50;
   --body-background-color: var(--color-gray-light);
   --drawer-width: 600px;
   --section-spacing: calc(2 * var(--gap));
@@ -14,6 +15,8 @@
   --width-max: 1600px;
   --gap: 25px;
   --gutter: 5vw;
+  --line-height-default: 1.6;
+  --font-size-default: 16px;
 }
 *, *::before, *::after  {
   box-sizing: border-box;
@@ -24,8 +27,8 @@
 html, body {
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
   color: var(--text-color);
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: var(--font-size-default);
+  line-height: var(--line-height-default);
 }
 body {
   background-color: var(--body-background-color);
@@ -71,7 +74,7 @@ h1 {
   margin-bottom: 10px;
 }
 h2 {
-  color: var(--link-color);
+  color: var(--color-navy);
   padding-bottom: 10px;
   border-bottom: 2px solid var(--link-color-hover);
 }
@@ -86,13 +89,6 @@ h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, 
 }
 p:last-child, ol:last-child, ul:last-child {
   margin-bottom: 0;
-}
-.material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 24
 }
 table thead {
   line-height: 1.3;
@@ -161,7 +157,7 @@ a:hover, a:focus {
   justify-content: center;
   text-transform: uppercase;
   background-color: var(--btn-background-color);
-  color: var(--btn-text-color) !important;
+  color: var(--btn-text-color);
   border: 2px solid var(--btn-border-color);
   line-height: calc(.8 * var(--line-height-default));
   transition: 0.3s all ease;
@@ -176,7 +172,7 @@ a:hover, a:focus {
 .aks-btn:not(:disabled):hover, .aks-btn:not(:disabled):focus {
   background-color: var(--btn-background-color-hover);
   border-color: var(--btn-border-color-hover);
-  color: var(--btn-text-color-hover) !important;
+  color: var(--btn-text-color-hover);
 }
 .aks-btn:focus-visible {
   outline: 2px solid;
@@ -187,106 +183,6 @@ a:hover, a:focus {
   background-color: var(--color-gray-dark);
   border: 2px solid var(--color-gray-dark);
   cursor: not-allowed;
-}
-/* BUTTON WITH ARROW */
-.aks-btn.aks-btn-arrow,
-.aks-btn.aks-btn-arrow-left,
-.aks-btn.aks-btn-arrow-right {
-  padding-left: 1.8rem;
-  padding-right: 1.8rem;
-}
-.aks-btn.aks-btn-arrow-left > span,
-.aks-btn.aks-btn-arrow-right > span {
-  position: relative;
-}
-.aks-btn.aks-btn-arrow-left > span::before,
-.aks-btn.aks-btn-arrow-right > span::after {
-  content: "";
-  position: absolute;
-  width: 0.5rem;
-  height: 0.5rem;
-  top: calc(50% - 0.25rem);
-  opacity: 0;
-  transition: 0.3s all ease;
-  border-top: 2px solid currentColor;
-}
-.aks-btn.aks-btn-arrow-right > span::after {
-  transform: rotate(45deg);
-  margin-left: -1rem;
-  border-right: 2px solid currentColor;
-  right: -1rem;
-}
-.aks-btn.aks-btn-arrow-left > span::before {
-  transform: rotate(-45deg);
-  margin-right: -1rem;
-  border-left: 2px solid currentColor;
-  left: -1rem;
-}
-.aks-btn.aks-btn-arrow-right:not(:disabled):hover,
-.aks-btn.aks-btn-arrow-right:not(:disabled):focus {
-  padding-right: 2.3rem;
-  padding-left: 1.3rem;
-}
-.aks-btn.aks-btn-arrow-left:not(:disabled):hover,
-.aks-btn.aks-btn-arrow-left:not(:disabled):focus {
-  padding-left: 2.3rem;
-  padding-right: 1.3rem;
-}
-.aks-btn.aks-btn-arrow-right:not(:disabled):hover > span::after,
-.aks-btn.aks-btn-arrow-right:not(:disabled):focus > span::after {
-  opacity: 1;
-  margin-left: 0.5rem;
-}
-.aks-btn.aks-btn-arrow-left:not(:disabled):hover > span::before,
-.aks-btn.aks-btn-arrow-left:not(:disabled):focus > span::before {
-  opacity: 1;
-  margin-right: 0.5rem;
-}
-/* ROUNDED BUTTON */
-.aks-btn-rounded {
-  border-radius: 5em;
-}
-/* LINKS AND BTNS TO EXTERNAL SITES  - requires having google icon font loaded in head */
-.aks-link-ext {
-  display: inline-flex;
-  gap: 5px;
-  align-items: center;
-}
-.aks-btn-rounded-sm, .aks-btn-rounded-sm:link, .aks-btn-rounded-sm:active, .aks-btn-rounded-sm:visited,
-.aks-btn.aks-btn-ext, .aks-btn.aks-btn-ext:active, .aks-btn.aks-btn-ext:visited {
-  align-items: center;
-  gap: .3em;
-}
-.aks-btn-rounded-sm, .aks-btn-rounded-sm:link, .aks-btn-rounded-sm:active, .aks-btn-rounded-sm:visited,
-.aks-btn.aks-btn-ext:not(.aks-btn-sharp), .aks-btn.aks-btn-ext:not(.aks-btn-sharp):active, .aks-btn.aks-btn-ext:not(.aks-btn-sharp):visited {
-  text-transform: none;
-  font-size: .9em;
-  border-radius: 5em;
-  font-weight: 700;
-  padding: .8em 1.7em .85em 1.7em;
-}
-.aks-btn.aks-btn-ext::after,
-.aks-link-ext::after {
-  content: "\e89e";
-  font-family: 'Material Symbols Outlined';
-  font-weight: normal;
-  font-style: normal;
-  margin-right: -3px;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-  -webkit-font-smoothing: antialiased;
-  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-}
-.aks-btn.aks-btn-ext::after {
-  font-size: 1.2em;
-}
-.aks-link-ext::after {
-  font-size: 1em;
 }
 /*************************
   ALERT BOXES
@@ -318,7 +214,7 @@ a:hover, a:focus {
   MENU AND HEADER
 *************************/
 header {
-  background-color: var(--link-color);
+  background-color: var(--color-navy);
   color: white;
   padding: 20px 0;
   margin-bottom: 30px;
@@ -383,7 +279,7 @@ header {
   left: 0;
   transition: all .3s;
   border: none;
-  color: var(--link-color);
+  --btn-text-color: var(--link-color);
   background-color: #fff;
   padding: 0 10px;
   height: 70px;
@@ -392,9 +288,24 @@ header {
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-#toggleDrawer span {
+#toggleDrawer .aks-icon-arrow-forward {
   transition: all .3s;
   font-size: 2rem;
+}
+#toggleDrawer .aks-icon-arrow-forward::after {
+  content: "\e5e1";
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 #toggleDrawer:hover {
   background-color: var(--link-color-hover);
@@ -462,7 +373,7 @@ label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  color: var(--link-color);
+  color: var(--color-navy);
 }
 input[type="number"], input[type="text"] {
   width: 100%;
@@ -515,23 +426,7 @@ select:hover {
   margin-bottom: 15px;
 }
 .form-group .aks-btn {
-  background-color: var(--link-color);
-  color: white;
-  border: none;
-  padding: 12px 25px;
-  font-size: .9rem;
   border-radius: 4px;
-  cursor: pointer;
-  transition: all .3s;
-}
-.form-group .aks-btn-secondary {
-  background-color: var(--link-color-hover);
-}
-.form-group .aks-btn:hover {
-  background-color: #19242e;
-}
-.form-group .aks-btn-secondary:hover {
-  background-color: #217dba;
 }
 /*************************
   PASSWORD ENTRY
@@ -604,6 +499,35 @@ line-height: 1;
   justify-content: center;
   margin-bottom: 1rem;
   min-width: 200px;
+}
+/*************************
+  ACTION BUTTONS
+*************************/
+.aks-actions-wrapper {
+  gap: 15px;
+}
+.aks-actions-wrapper .aks-btn .aks-icon::before {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+#printReport .aks-icon::before {
+  content: "\e8ad";
+}
+#saveCaseButton .aks-icon::before {
+  content: "\e161";
+}
+#loadCaseButton .aks-icon::before {
+  content: "\e881";
 }
 /*************************
   ANALYSIS RESULTS
