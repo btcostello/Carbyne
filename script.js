@@ -774,10 +774,10 @@ document.querySelectorAll('.formatted-number').forEach(input => {
 // Password entry form
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('password-form');
-  const input = document.getElementById('password'); // updated id
+  const input = document.getElementById('password');
   const toggleBtn = form.querySelector('.aks-toggle-pword-btn');
   const control = form.querySelector('.aks-form-control');
-  const overlay = document.getElementById('password-overlay'); // assumes this exists
+  const overlay = document.getElementById('password-overlay');
   const correctPassword = 'c4rbyn3';
   toggleBtn.addEventListener('click', () => {
     const isHidden = input.getAttribute('type') === 'password';
