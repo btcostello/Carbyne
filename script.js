@@ -927,26 +927,53 @@ document.querySelectorAll('.formatted-number').forEach(input => {
   });
 });
 
-function checkPassword() {
-    const password = document.getElementById('password-input').value;
-    const correctPassword = 'c4rbyn3'; // Change this to your desired password
-    
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('password-form');
+  const input = document.getElementById('password'); // updated id
+  const toggleBtn = form.querySelector('.aks-toggle-pword-btn');
+  const control = form.querySelector('.aks-form-control');
+  const overlay = document.getElementById('password-overlay'); // assumes this exists
+  const correctPassword = 'c4rbyn3';
+
+  // Toggle password visibility
+  toggleBtn.addEventListener('click', () => {
+    const isHidden = input.getAttribute('type') === 'password';
+    input.setAttribute('type', isHidden ? 'text' : 'password');
+
+    // Flip a class for your icon/CSS
+    toggleBtn.classList.toggle('is-revealed', isHidden);
+
+    // Accessible name/state
+    toggleBtn.setAttribute('aria-pressed', String(isHidden));
+    toggleBtn.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
+
+    // Keep focus on the input for better UX
+    input.focus();
+  });
+
+  // Handle submit
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    // Remove any existing error
+    const oldError = form.querySelector('.aks-alert.aks-error');
+    if (oldError) oldError.remove();
+
+    const password = input.value.trim();
     if (password === correctPassword) {
-        document.getElementById('password-overlay').style.display = 'none';
-        document.getElementById('error-message').textContent = '';
+      if (overlay) overlay.style.display = 'none';
+      input.value = '';
     } else {
-        document.getElementById('error-message').textContent = 'Incorrect password. Please try again.';
-        document.getElementById('password-input').value = '';
+      const error = document.createElement('p');
+      error.className = 'aks-alert aks-error';
+      error.textContent = 'Incorrect password. Please try again.';
+      // insert after the control group, before the submit button
+      control.insertAdjacentElement('afterend', error);
+      input.value = '';
+      input.focus();
     }
-}
-
-// Allow Enter key to submit password
-document.getElementById('password-input').addEventListener('keypress', function(event) {
-    if (event.key === 'Enter') {
-        checkPassword();
-    }
+  });
 });
-
 
 // Calculate initial values
 calculateTotalCarbyne();

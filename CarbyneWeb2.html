@@ -5,19 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carbyne Allocation&trade; Model</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_forward_ios" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=visibility" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=visibility_off" />
     <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
     <div id="password-overlay">
-      <div id="password-form">
-        <h2>Enter Password</h2>
-        <input type="password" id="password-input" placeholder="Password">
-        <br>
-        <button id="password-button" onclick="checkPassword()">Enter</button>
+      <form id="password-form">
+        <h1>Enter Password</h1>
+        <div class="aks-form-control aks-form-password-field">
+          <label class="sr-only" for="password">Password:</label>
+          <div class="aks-pword-toggle-wrapper aks-display-flex">
+            <input id="password" name="password" type="password" placeholder="Password" required>
+            <button class="aks-btn-link aks-toggle-pword-btn" type="button" aria-label="Toggle sensitive"><span class="aks-icon aks-icon-eye" aria-hidden="true"></span></button>
+          </div>
+        </div>
+        <button id="password-button">Enter</button>
         <p>To acess the Carbyne Allocation&trade; Calculator contact Keith Friedman <a href="mailto:keith.friedman@fbostrategies.com">keith.friedman@fbostrategies.com</a></p>
         <div id="error-message" class="error"></div>
-      </div>
+      </form>
     </div>
     <div id="page">
     
