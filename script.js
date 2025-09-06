@@ -158,7 +158,6 @@ function calculateTotalCarbyne() {
 
 // Generate projection table
 function generateProjectionTable() {
-  console.log("Generating projection table...");
   // Get values from inputs from the first screen
   const currentAge = parseInt(document.getElementById('currentAge').value) || 45;
   const bondYield = parseFloat(document.getElementById('bondYield').value) || 4.5;
@@ -230,7 +229,6 @@ function generateProjectionTable() {
     const unitcharge = yearOfProjection <= 5 ? perUnitFactor[currentAge]: 0
     const perUnitCharge = unitcharge*faceAmount/1000
     tempav = tempav-perUnitCharge
-    console.log(perUnitCharge)
     //deduct COI charge
     coirate = COI[currentAge-20][yearOfProjection-1] * coiScalar
     const persBonus = yearOfProjection <= 15 ? 0.00 : 0.00
@@ -306,7 +304,6 @@ function generateProjectionTable() {
       summaryTableBody.appendChild(sumRow)
     }
     if (age===70 && currentAge < 70){
-      console.log("this ran")
       const summaryTableBody = document.getElementById('summaryTableBody');
       const sumRow = document.createElement('tr');
       const carbtotal = carbyneEnd + insuranceCashValue
