@@ -102,6 +102,187 @@ a {
 a:hover, a:focus {
   color: var(--link-color-hover);
 }
+/* BUTTON COLOR VARIABLES */
+.aks-btn {
+  --btn-background-color: var(--link-color);
+  --btn-background-color-hover: var(--link-color-hover);
+  --btn-text-color: #fff;
+  --btn-text-color-hover: #fff;
+  --btn-border-color: var(--btn-background-color);
+  --btn-border-color-hover: var(--btn-background-color-hover);
+}
+.aks-has-dark-background .aks-btn {
+  --btn-background-color: #fff;
+  --btn-background-color-hover: var(--link-background-color-focus);
+  --btn-text-color: var(--link-color);
+  --btn-text-color-hover: var(--text-color);
+}
+.aks-btn-stroke {
+  --btn-background-color: transparent;
+  --btn-background-color-hover: transparent;
+  --btn-text-color: var(--link-color);
+  --btn-text-color-hover: var(--link-color-hover);
+  --btn-border-color: var(--btn-text-color);
+  --btn-border-color-hover: var(--btn-text-color-hover);
+}
+.aks-has-dark-background .aks-btn-stroke {
+  --btn-background-color: transparent;
+  --btn-background-color-hover: transparent;
+  --btn-text-color: #fff;
+  --btn-text-color-hover: var(--link-background-color-focus);
+}
+.aks-btn-stroke-hover-fill {
+  --btn-background-color: transparent;
+  --btn-background-color-hover: var(--link-color);
+  --btn-text-color: var(--link-color);
+  --btn-text-color-hover: #fff;
+  --btn-border-color: var(--link-color);
+}
+.aks-has-dark-background .aks-btn-stroke-hover-fill {
+  --btn-background-color: transparent;
+  --btn-background-color-hover: #fff;
+  --btn-text-color: #fff;
+  --btn-text-color-hover: var(--link-color);
+  --btn-border-color: var(--btn-text-color);
+}
+.aks-btn-hover-stroke {
+  --btn-background-color-hover: transparent;
+  --btn-text-color-hover: var(--btn-background-color);
+  --btn-border-color-hover: var(--btn-background-color);
+}
+/* BUTTON COLOR SETUPS */
+.aks-btn, .aks-btn:link, .aks-btn:visited {
+  display: inline-flex;
+  justify-content: center;
+  text-transform: uppercase;
+  background-color: var(--btn-background-color);
+  color: var(--btn-text-color) !important;
+  border: 2px solid var(--btn-border-color);
+  line-height: calc(.8 * var(--line-height-default));
+  transition: 0.3s all ease;
+  position: relative;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: .8rem 1.7rem;
+  cursor: pointer;
+}
+.aks-btn:not(:disabled):hover, .aks-btn:not(:disabled):focus {
+  background-color: var(--btn-background-color-hover);
+  border-color: var(--btn-border-color-hover);
+  color: var(--btn-text-color-hover) !important;
+}
+.aks-btn:focus-visible {
+  outline: 2px solid;
+  outline-offset: 2px;
+}
+/* DISABLED BUTTON */
+.aks-btn:disabled {
+  background-color: var(--color-gray-dark);
+  border: 2px solid var(--color-gray-dark);
+  cursor: not-allowed;
+}
+/* BUTTON WITH ARROW */
+.aks-btn.aks-btn-arrow,
+.aks-btn.aks-btn-arrow-left,
+.aks-btn.aks-btn-arrow-right {
+  padding-left: 1.8rem;
+  padding-right: 1.8rem;
+}
+.aks-btn.aks-btn-arrow-left > span,
+.aks-btn.aks-btn-arrow-right > span {
+  position: relative;
+}
+.aks-btn.aks-btn-arrow-left > span::before,
+.aks-btn.aks-btn-arrow-right > span::after {
+  content: "";
+  position: absolute;
+  width: 0.5rem;
+  height: 0.5rem;
+  top: calc(50% - 0.25rem);
+  opacity: 0;
+  transition: 0.3s all ease;
+  border-top: 2px solid currentColor;
+}
+.aks-btn.aks-btn-arrow-right > span::after {
+  transform: rotate(45deg);
+  margin-left: -1rem;
+  border-right: 2px solid currentColor;
+  right: -1rem;
+}
+.aks-btn.aks-btn-arrow-left > span::before {
+  transform: rotate(-45deg);
+  margin-right: -1rem;
+  border-left: 2px solid currentColor;
+  left: -1rem;
+}
+.aks-btn.aks-btn-arrow-right:not(:disabled):hover,
+.aks-btn.aks-btn-arrow-right:not(:disabled):focus {
+  padding-right: 2.3rem;
+  padding-left: 1.3rem;
+}
+.aks-btn.aks-btn-arrow-left:not(:disabled):hover,
+.aks-btn.aks-btn-arrow-left:not(:disabled):focus {
+  padding-left: 2.3rem;
+  padding-right: 1.3rem;
+}
+.aks-btn.aks-btn-arrow-right:not(:disabled):hover > span::after,
+.aks-btn.aks-btn-arrow-right:not(:disabled):focus > span::after {
+  opacity: 1;
+  margin-left: 0.5rem;
+}
+.aks-btn.aks-btn-arrow-left:not(:disabled):hover > span::before,
+.aks-btn.aks-btn-arrow-left:not(:disabled):focus > span::before {
+  opacity: 1;
+  margin-right: 0.5rem;
+}
+/* ROUNDED BUTTON */
+.aks-btn-rounded {
+  border-radius: 5em;
+}
+/* LINKS AND BTNS TO EXTERNAL SITES  - requires having google icon font loaded in head */
+.aks-link-ext {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+}
+.aks-btn-rounded-sm, .aks-btn-rounded-sm:link, .aks-btn-rounded-sm:active, .aks-btn-rounded-sm:visited,
+.aks-btn.aks-btn-ext, .aks-btn.aks-btn-ext:active, .aks-btn.aks-btn-ext:visited {
+  align-items: center;
+  gap: .3em;
+}
+.aks-btn-rounded-sm, .aks-btn-rounded-sm:link, .aks-btn-rounded-sm:active, .aks-btn-rounded-sm:visited,
+.aks-btn.aks-btn-ext:not(.aks-btn-sharp), .aks-btn.aks-btn-ext:not(.aks-btn-sharp):active, .aks-btn.aks-btn-ext:not(.aks-btn-sharp):visited {
+  text-transform: none;
+  font-size: .9em;
+  border-radius: 5em;
+  font-weight: 700;
+  padding: .8em 1.7em .85em 1.7em;
+}
+.aks-btn.aks-btn-ext::after,
+.aks-link-ext::after {
+  content: "\e89e";
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  margin-right: -3px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+.aks-btn.aks-btn-ext::after {
+  font-size: 1.2em;
+}
+.aks-link-ext::after {
+  font-size: 1em;
+}
 /*************************
   ALERT BOXES
 *************************/
@@ -318,44 +499,40 @@ select:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 1);
+  background-color: var(--body-background-color);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 500;
 }
 #password-form {
-  background: white;
+  background-color: white;
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
+  max-width: 800px;
 }
-#password-input {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin: 10px;
-  width: 200px;
+.aks-login-form-wrapper .aks-form-control {
+  margin-bottom: 1rem;
 }
-#password-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #007cba;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+.aks-form-password-field input {
+  flex: 1 1 auto;
+  border-radius: 4px 0 0 4px;
 }
-#password-button:hover {
-  background-color: #005a87;
+.aks-form-password-field button {
+  line-height: calc(.75 * var(--line-height-default));
+  border-radius: 0 4px 4px 0;
+  font-size: .9rem;
+  padding: 7px 14px 8px 14px;
+  background-color: transparent;
+  border: 1px solid #dadce0 !important;
+  border-left: none !important;
 }
-.error {
-  color: red;
-  margin-top: 10px;
+.aks-login-form-password button:hover {
+  color: var(--link-color-hover);
 }
-#password-form .aks-icon-eye::after {
+.aks-form-password-field .aks-icon-eye::after {
   content: "\e8f4";
   font-family: 'Material Symbols Outlined';
   font-weight: normal;
@@ -371,8 +548,13 @@ select:hover {
   -webkit-font-smoothing: antialiased;
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
-#password-form .is-revealed .aks-icon-eye::after {
+.aks-form-password-field .is-revealed .aks-icon-eye::after {
   content: "\e8f5";
+}
+.aks-login-form .aks-btn {
+  text-transform: none;
+  width: 100%;
+  justify-content: center;
 }
 /*************************
   ANALYSIS RESULTS
