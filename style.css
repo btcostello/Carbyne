@@ -44,6 +44,17 @@ body {
   margin-bottom: 30px;
 }
 /*************************
+    ACCESSIBILITY
+*************************/
+.sr-only {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+/*************************
   TEXT
 *************************/
 h1, h2, h3, h4, h5, h6 {
@@ -90,6 +101,32 @@ a {
 }
 a:hover, a:focus {
   color: var(--link-color-hover);
+}
+/*************************
+  ALERT BOXES
+*************************/
+.aks-alert {
+  color: var(--text-color);
+  position: relative;
+  padding: .75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.aks-alert-error {
+  background-color: var(--color-red-light);
+  border-color: var(--color-red);
+}
+.aks-alert-info {
+  background-color: var(--color-navy-light);
+  border-color: var(--color-navy);
+}
+.aks-alert-success {
+  background-color: var(--color-green-light);
+  border-color: var(--color-green);
+}
+.aks-alert:last-child {
+  margin-bottom: 0;
 }
 /*************************
   MENU AND HEADER

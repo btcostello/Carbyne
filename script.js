@@ -956,7 +956,7 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
 
     // Remove any existing error
-    const oldError = form.querySelector('.aks-alert.aks-error');
+    const oldError = form.querySelector('.aks-alert.aks-alert-error');
     if (oldError) oldError.remove();
 
     const password = input.value.trim();
@@ -965,7 +965,7 @@ document.addEventListener('DOMContentLoaded', () => {
       input.value = '';
     } else {
       const error = document.createElement('p');
-      error.className = 'aks-alert aks-error';
+      error.className = 'aks-alert aks-alert-error';
       error.textContent = 'Incorrect password. Please try again.';
       // insert after the control group, before the submit button
       control.insertAdjacentElement('afterend', error);
