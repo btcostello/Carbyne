@@ -440,6 +440,7 @@ input, textarea, select {
 }
 button {
   font-family: inherit;
+  transition: .3s all;
 }
 button, select, input[type="checkbox"], input[type="radio"] {
   cursor: pointer;
@@ -567,10 +568,10 @@ select:hover {
   border-radius: 4px 0 0 4px;
 }
 .aks-form-password-field button {
-  line-height: calc(.75 * var(--line-height-default));
+line-height: 1;
   border-radius: 0 4px 4px 0;
-  font-size: .9rem;
-  padding: 7px 14px 8px 14px;
+  font-size: 1.25rem;
+  padding: 10px 10px 8px 10px;
   background-color: transparent;
   border: 1px solid #dadce0 !important;
   border-left: none !important;
@@ -583,7 +584,6 @@ select:hover {
   font-family: 'Material Symbols Outlined';
   font-weight: normal;
   font-style: normal;
-  margin-right: -3px;
   line-height: 1;
   letter-spacing: normal;
   text-transform: none;
@@ -596,6 +596,9 @@ select:hover {
 }
 .aks-form-password-field .is-revealed .aks-icon-eye::after {
   content: "\e8f5";
+}
+.aks-form-password-field button:hover {
+  color: var(--link-color-hover);
 }
 .aks-login-form .aks-btn {
   justify-content: center;
