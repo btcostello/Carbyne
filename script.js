@@ -268,7 +268,6 @@ function generateProjectionTable() {
     const differenceToHeirs = deathBenefit + carbyneEnd - currentEnd;
     // Create table row
     const row = document.createElement('tr');
-    row.style.backgroundColor = (age % 2 === 0) ? '#f8f9fa' : '#ffffff';
     // Add data cells
     row.innerHTML = `
       <td>${age}</td>
@@ -409,7 +408,7 @@ function createAssetsComparisonChart(ages, currentAssets, carbyneHeirs, carbyneW
       labels: ages,
       datasets: [
         {
-          label: 'Current Allocation Fixed Income Assets',
+          label: 'Current Allocation',
           data: currentAssets,
           borderColor: 'rgb(231, 76, 60)', // Accent color
           backgroundColor: 'rgba(231, 76, 60, 0.1)',
@@ -418,7 +417,7 @@ function createAssetsComparisonChart(ages, currentAssets, carbyneHeirs, carbyneW
           borderWidth: 2
         },
         {
-          label: 'Carbyne net to Heirs',
+          label: 'Carbyne Allocation®',
           data: carbyneHeirs,
           borderColor: 'rgb(52, 152, 219)', // Secondary color
           backgroundColor: 'rgba(52, 152, 219, 0.1)',
@@ -426,7 +425,7 @@ function createAssetsComparisonChart(ages, currentAssets, carbyneHeirs, carbyneW
           borderWidth: 2
         },
         {
-          label: 'Carbyne FI Assets + Insurance Cash Value',
+          label: 'Carbyne Allocation® Advantage',
           data: carbyneWithInsurance,
           borderColor: 'rgb(44, 62, 80)', // Primary color
           backgroundColor: 'rgba(44, 62, 80, 0.1)',
@@ -796,59 +795,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Reveal #projection, jump to it like an anchor, clean URL, then slide open
-document.addEventListener("DOMContentLoaded", function() {
-  const button = document.querySelector(".aks-run-calc-wrapper button");
-  const inputs = document.getElementById("inputs");
-  const projection = document.getElementById("projection");
-
-  if (!button || !inputs || !projection) return;
-
-  button.addEventListener("click", function() {
-    if (button.dataset.busy === "1") return;
-    button.dataset.busy = "1";
-
-    // 1) Make it participate in layout so the anchor jump has somewhere to land
-    projection.style.display = "block";
-
-    // 2) Anchor-style jump (most reliable way to hit exact top of the element)
-    //    This will scroll immediately (browser-native behavior).
-    const prevHash = window.location.hash;
-    if (projection.id !== "projection") projection.id = "projection";
-    window.location.hash = "#projection";
-
-    // 3) Clean the URL (remove the hash) without affecting scroll position
-    if (history.replaceState) {
-      history.replaceState(null, "", window.location.pathname + window.location.search);
-    } else {
-      // (old browsers just leave the hash)
-    }
-
-    // 4) Now run the slide-open after the jump has taken effect
-    //    Use a tiny delay to ensure the hash jump completes painting.
-    setTimeout(() => {
-      projection.classList.add("aks-collapsible", "aks-collapsed");
-      // next frame: expand
-      requestAnimationFrame(() => {
-        projection.style.maxHeight = projection.scrollHeight + "px";
-        projection.classList.remove("aks-collapsed");
-      });
-
-      // 5) Hide the button so it doesn't shift layout before the jump
-      button.style.display = "none";
-
-      // 6) Cleanup when the transition ends
-      const onEnd = (e) => {
-        if (e.propertyName !== "max-height") return;
-        projection.removeEventListener("transitionend", onEnd);
-        projection.style.maxHeight = "";
-        projection.classList.remove("aks-collapsible");
-        button.dataset.busy = ""; // allow future interactions if you ever re-hide/show
-      };
-      projection.addEventListener("transitionend", onEnd);
-    }, 20);
-  });
-});
 
 
 

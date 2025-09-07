@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carbyne Allocation&reg; Calculator</title>
     <link rel="shortcut icon" href="images/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_forward_ios" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=visibility" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=visibility_off" />
@@ -12,7 +14,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=save" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=find_replace" />
     <link rel="stylesheet" href="style.css" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
     <div id="password-overlay">
@@ -34,9 +35,9 @@
     <div id="page">
     
       <header class="aks-header">
-        <div class="aks-container aks-display-flex">
+        <div class="aks-container aks-display-grid">
           <div class="logo">
-            <a href="https://fbostrategies.com" target="_blank"><img src="images/carbyne-logo.png" alt="Carbyne Allocation" height="150"></a>
+            <a href="https://fbostrategies.com" target="_blank"><img src="images/carbyne-logo.png" alt="Carbyne Allocation" width="350"></a>
           </div>
           <div class="aks-text-holder">
             <h1>Carbyne Allocation&reg; Calculator</h1>
@@ -220,53 +221,56 @@
               <section id="projectionSection" class="card">
                 <h3 class="aks-h3">Carbyne Allocation&reg; Projection</h3>
                 <p>The Carbyne Allocation&reg; offers substantially more growth potential than typical fixed assets and provides substantial death benefit protection. This projection model shows how repositioning your current Fixed Income assets and allocating a portion of cash flow over the next 5-years can results in substantially more value.</p>
-                
-                <div class="aks-display-flex aks-proj-wrapper">
 
-                  <div class="aks-single">
-                    <h3 class="aks-h3">Carbyne Allocation&reg; Advantage</h3>
-                    <table id="summaryTable" class="aks-table aks-table-hover">
-                      <caption>Not Sure</caption>
-                      <thead>
-                        <tr>
-                        <th rowspan="2">Attained Age</th>
-                        <th rowspan="2">Current Allocation</th>
-                        <th rowspan="2">Carbyne Allocation&reg;</th>
-                        <th colspan="5">Carbyne Allocation&reg; Advantage</th>
-                        </tr>
-                      </thead>
-                      <tbody id="summaryTableBody">
-                        <tr>
-                          <th>80</th>
-                          <th>######</th>
-                          <th>######</th>
-                          <th class="advCell">######</th>
-                        </tr>
-                        <tr>
-                          <th>90</th>
-                          <th>######</th>
-                          <th>######</th>
-                          <th class="advCell">######</th>
-                        </tr>
-                        <tr>
-                          <th>100</th>
-                          <th>######</th>
-                          <th>######</th>
-                          <th class="advCell">######</th>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div class="aks-single aks-chart-holder-outer">
-                    <div class="aks-chart-holder-inner">
-                      <canvas id="assetsComparisonChart"></canvas>
+                <figure class="aks-proj-summary-wrapper-outer">
+                  <figcaption id="summaryCaption" class="aks-h4">Carbyne Allocation® Advantage at Key Ages</figcaption>
+                  <div class="aks-display-flex aks-proj-summary-wrapper-inner">
+                    <div class="aks-single">
+                  
+                      <table id="summaryTable" class="aks-table aks-table-hover" aria-describedby="summaryCaption">
+                        <thead>
+                          <tr>
+                            <th rowspan="2">Age</th>
+                            <th rowspan="2">Current Allocation</th>
+                            <th rowspan="2">Carbyne Allocation&reg;</th>
+                            <th colspan="5">Carbyne Allocation&reg; Advantage</th>
+                          </tr>
+                        </thead>
+                        <tbody id="summaryTableBody">
+                          <tr>
+                            <th>80</th>
+                            <th>######</th>
+                            <th>######</th>
+                            <th class="advCell">######</th>
+                          </tr>
+                          <tr>
+                            <th>90</th>
+                            <th>######</th>
+                            <th>######</th>
+                            <th class="advCell">######</th>
+                          </tr>
+                          <tr>
+                            <th>100</th>
+                            <th>######</th>
+                            <th>######</th>
+                            <th class="advCell">######</th>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="aks-single aks-chart-holder-outer">
+                      <div class="aks-chart-holder-inner">
+                        <canvas id="assetsComparisonChart"></canvas>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </figure>
 
-                <div class="aks-table-wrapper">
+
+
+                <div class="aks-table-overflow-wrapper">
                   <table id="projectionTable" class="aks-table aks-table-hover">
-                    <caption>Not Sure</caption>
+                    <caption class="aks-h4">Detailed Yearly Breakdown of Carbyne Allocation® Advantage</caption>
                     <thead>
                       <tr>
                         <th rowspan="2">Age</th>
