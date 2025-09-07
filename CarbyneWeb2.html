@@ -226,7 +226,7 @@
 
                 <figure class="aks-proj-summary-wrapper-outer">
                   <figcaption id="summaryCaption" class="aks-h4">Carbyne Allocation® Advantage at Key Ages</figcaption>
-                  <div class="aks-display-flex aks-proj-summary-wrapper-inner">
+                  <div class="aks-display-grid aks-proj-summary-wrapper-inner">
                     <div class="aks-single">
                   
                       <table id="summaryTable" class="aks-table aks-table-hover" aria-describedby="summaryCaption">
@@ -272,35 +272,46 @@
                 <div class="aks-table-overflow-wrapper">
                   <table id="projectionTable" class="aks-table aks-table-hover">
                     <caption class="aks-h4">Detailed Yearly Breakdown of Carbyne Allocation® Advantage</caption>
+
+                    <col>
+                    <col>
+                    <colgroup span="5"></colgroup>
+                    <colgroup span="9"></colgroup>
+                    <colgroup span="2"></colgroup>
+
                     <thead>
                       <tr>
-                        <th rowspan="2">Age</th>
-                        <th rowspan="2">Year</th>
-                        <th colspan="5">Current Allocation</th>
-                        <th colspan="9">Carbyne Allocation&reg;</th>
-                        <th colspan="2">Performance Difference</th>
+                        <th rowspan="2" scope="col">Age</th>
+                        <th rowspan="2" scope="col">Year</th>
+                        <th colspan="5" scope="colgroup">Current Allocation</th>
+                        <th colspan="9" scope="colgroup">Carbyne Allocation&reg;</th>
+                        <th colspan="2" scope="colgroup">Performance Difference</th>
                       </tr>
                       <tr>
-                        <th>Investable Assets Beginning of Year</th>
-                        <th>New Savings</th>
-                        <th>Investment Return</th>
-                        <th>Taxes and Fees</th>
-                        <th>Investable Assets End of Year</th>
-                        <th>Investable Assets Beginning of Year</th>
-                        <th>New Savings</th>
-                        <th>Investment Return</th>
-                        <th>Taxes and Fees</th>
-                        <th>Insurance Premium Allocation</th>
-                        <th>Investable Assets End of Year</th>
-                        <th>Life Insurance Cash Value</th>
-                        <th>Investable Assets plus Insurance Cash Value</th>
-                        <th>Death Benefit</th>
-                        <th>Liquidity Difference</th>
-                        <th>Difference to Heirs</th>
+
+                        <th scope="col">Investable Assets Beginning of Year</th>
+                        <th scope="col">New Savings</th>
+                        <th scope="col">Investment Return</th>
+                        <th scope="col">Taxes and Fees</th>
+                        <th scope="col">Investable Assets End of Year</th>
+
+                        <th scope="col">Investable Assets Beginning of Year</th>
+                        <th scope="col">New Savings</th>
+                        <th scope="col">Investment Return</th>
+                        <th scope="col">Taxes and Fees</th>
+                        <th scope="col">Insurance Premium Allocation</th>
+                        <th scope="col">Investable Assets End of Year</th>
+                        <th scope="col">Life Insurance Cash Value</th>
+                        <th scope="col">Investable Assets plus Insurance Cash Value</th>
+                        <th scope="col">Death Benefit</th>
+
+                        <th scope="col">Liquidity Difference</th>
+                        <th scope="col">Difference to Heirs</th>
                       </tr>
                     </thead>
+
                     <tbody id="projectionTableBody">
-                    <!-- Table rows will be dynamically populated -->
+                      <!-- rows added dynamically -->
                     </tbody>
                   </table>
                 </div>
@@ -343,7 +354,7 @@
             <p>This demonstration is based on a generic Indexed Universal Life (IUL) product. It is not based on any particular carrier's product, but is similar to many products on the market. The product you select will have different costs and benefits. This demonstration assumes a 6.50% annual S&P 500&reg; index credit and current charges, this is consistent with historical returns for indexed account with an 10.5% cap and 0% floor.</p>
             <h3>Stress Test</h3>
             <p>The stress test scenario assumes the policy receives a 0% credit once every 7 years. 5 years This is actually a double stress test accounting for zeros more than once. The model assumed 6.50% return already accounts for zeros occurring because it reflects historical average returns</p>
-            <h2>Disclosures</h3>
+            <h3>Disclosures</h3>
             <p>This exploratory demonstration is not a life insurance illustration. It does not reflect any particular product or carrier. The primary reason to buy life insurance is death benefit. Life insurance cash value growth may qualify for favorable tax treatment. Nothing in this presentation should be construed as a guarantee or tax advice.</p>
           </div>
         </aside>

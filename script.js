@@ -829,4 +829,3 @@ $runWrap.on('click', 'button', function () {
 
 // Calculate initial values
 calculateTotalCarbyne();
-// generateProjectionTable();

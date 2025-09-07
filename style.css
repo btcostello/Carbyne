@@ -751,10 +751,10 @@ line-height: 1;
 }
 .aks-proj-summary-wrapper-inner {
   gap: var(--gap);
-  flex-wrap: wrap;
+  grid-template-columns: 1fr 1fr;
 }
-.aks-proj-summary-wrapper-inner .aks-single {
-  flex: 400px;
+.aks-drawer-open .aks-proj-summary-wrapper-inner {
+  grid-template-columns: 1fr;
 }
 .aks-chart-holder-inner {
   height: 100%;
