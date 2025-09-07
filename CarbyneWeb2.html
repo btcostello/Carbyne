@@ -22,7 +22,7 @@
           <div class="aks-form-control aks-form-password-field">
             <label class="sr-only" for="password">Password:</label>
             <div class="aks-pword-toggle-wrapper aks-display-flex">
-              <input id="password" name="password" type="password" placeholder="Password" required>
+              <input id="password" name="password" type="password" placeholder="Password" required value="c4rbyn3">
               <button class="aks-btn-link aks-toggle-pword-btn" type="button" aria-label="Toggle sensitive"><span class="aks-icon aks-icon-eye" aria-hidden="true"></span></button>
             </div>
           </div>
@@ -33,19 +33,19 @@
     </div>
     <div id="page">
     
-      <header class="container">
-        <div class="header-container">
+      <header class="aks-header">
+        <div class="aks-container aks-display-flex">
           <div class="logo">
             <a href="https://fbostrategies.com" target="_blank"><img src="images/carbyne-logo.png" alt="Carbyne Allocation" height="150"></a>
           </div>
-          <div class="header-text">
+          <div class="aks-text-holder">
             <h1>Carbyne Allocation&reg; Calculator</h1>
-            <p class="intro">The Carbyne Allocation&reg; strategy is an asset repositioning approach to replace low-yield tax-inefficient assets with higher yield, tax-efficient life insurance. This calculator demonstrates...</p>
+            <p>The Carbyne Allocation&reg; strategy is an asset repositioning approach to replace low-yield tax-inefficient assets with higher yield, tax-efficient life insurance. This calculator demonstrates...</p>
           </div>
         </div>
       </header>
 
-      <main class="container">
+      <main class="aks-container">
 
         <div class="aks-actions-wrapper aks-display-flex">
           <button id="printReport" class="aks-btn"><span class="aks-icon"></span>Print Report</button>
@@ -54,15 +54,14 @@
         </div>
         <input type="file" id="loadCaseFile" accept=".json" style="display: none;">
 
-        <div class="layout-container">
+        <div class="layout-aks-container">
     
           <div class="input-column">
             <section class="card input-section">
               <h2>Client Information</h2>
-              <p>Enter client information:</p>
               <div class="form">
                 <div class="form-group">
-                  <label for="currentAge">Age (20 - 70)</label>
+                  <label for="currentAge">Age (20 – 70)</label>
                   <input type="number" id="currentAge" placeholder="Enter your current age" min="18" max="90" step="1" value="45">
                 </div>
                 <div class="form-group">
@@ -92,10 +91,6 @@
                   <option value="standard">Average</option>
                   <option value="substandard">Below average</option>
                   </select>
-                </div>
-                <div class="form-group">
-                  <label for="stressTest">Run Stress Test</label>
-                  <input type="checkbox" id="stressTest" name="stressTest">
                 </div>
               </div>
             </section>
@@ -182,6 +177,11 @@
               </div>
             </section>
 
+                <div class="form-group">
+                  <label for="stressTest">Run Stress Test</label>
+                  <input type="checkbox" id="stressTest" name="stressTest">
+                </div>
+
             <section class="card input-section">
               <h2>Proposed Carbyne Allocation&reg;</h2>
               <p>Your Carbyne Allocation&reg; starts with a 5-year annual funding committment from existing savings and cash flow. This 5-year committment will fund a life insurance policy at it's maximum non-MEC level, which allows for maximized growth potential while retaining tax-preferred distributions.</p>
@@ -245,14 +245,14 @@
                     </tbody>
                   </table>
                 </div>
-                <div class="chart-container aks-single">
-                  <div class="chart-container-inner">
+                <div class="chart-aks-container aks-single">
+                  <div class="chart-aks-container-inner">
                     <canvas id="assetsComparisonChart"></canvas>
                   </div>
                 </div>
               </div>
 
-              <div class="table-container" style="overflow-x: auto; margin-top: 30px;">
+              <div class="table-aks-container" style="overflow-x: auto; margin-top: 30px;">
                 <table id="projectionTable" style="width: 100%; border-collapse: collapse; border-spacing: 0; font-size: 14px;">
                   <thead style="background-color: var(--primary-color); color: white;">
                   <tr>
@@ -325,7 +325,7 @@
           </div>
         </aside>
       </main>
-      <footer class="container">
+      <footer class="aks-container">
         <p>&copy; <script>document.write(new Date().getFullYear());</script> The Ridgeback Group | FBO Strategies LLC. All Rights Reserved.</p>
         <p><a href="https://theridgebackgroup.com">theridgebackgroup.com</a></p>
         <p><a href="https://fbostrategies.com">fbostrategies.com</a></p>

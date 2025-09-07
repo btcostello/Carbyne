@@ -486,40 +486,30 @@ function createAssetsComparisonChart(ages, currentAssets, carbyneHeirs, carbyneW
   });
 }
 
-// Add event listeners to all income input fields
-document.getElementById('baseIncome').addEventListener('change', calculateTotalCarbyne);
-document.getElementById('bonusIncome').addEventListener('change', calculateTotalCarbyne);
-document.getElementById('monthlyExpenses').addEventListener('change', calculateTotalCarbyne);
-document.getElementById('taxRate').addEventListener('change', calculateTotalCarbyne);
+// === Event listeners (deduped) ===
 
-// Add event listeners to all portfolio input fields
-document.getElementById('equities').addEventListener('change', calculateTotalCarbyne);
-document.getElementById('fixedIncome').addEventListener('change', calculateTotalCarbyne);
-document.getElementById('cash').addEventListener('change', calculateTotalCarbyne);
-document.getElementById('alternatives').addEventListener('change', calculateTotalCarbyne);
-document.getElementById('other').addEventListener('change', calculateTotalCarbyne);
+// text/number inputs → update live on keystroke
+[
+  // income
+  'baseIncome','bonusIncome','monthlyExpenses','taxRate',
+  // portfolio
+  'equities','fixedIncome','cash','alternatives','other',
+  // client numeric/text
+  'fundingYears','currentAge','bondYield','advisoryFee','fixedIncomeAllocation'
+].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) {
+    el.addEventListener('input', () => { if (autoUpdate) generateProjectionTable(); });
+  }
+});
 
-// Add event listeners to all client input fields
-document.getElementById('fundingYears').addEventListener('change', function() {if (autoUpdate) {generateProjectionTable()}});
-document.getElementById('stressTest').addEventListener('change', function() {if (autoUpdate) {generateProjectionTable()}});
-document.getElementById('riskClass').addEventListener('change', function() {if (autoUpdate) {generateProjectionTable()}});
-document.getElementById('currentAge').addEventListener('change', function() {if (autoUpdate) {generateProjectionTable()}});
-document.getElementById('bondYield').addEventListener('change', function() {if (autoUpdate) {generateProjectionTable()}});
-document.getElementById('advisoryFee').addEventListener('change', function() {if (autoUpdate) {generateProjectionTable()}});
-document.getElementById('fixedIncomeAllocation').addEventListener('change', function() {if (autoUpdate) {generateProjectionTable()}});
-
-// Add event listeners to all income input fields
-document.getElementById('baseIncome').addEventListener('change', function() {if (autoUpdate) {generateProjectionTable()}});
-document.getElementById('bonusIncome').addEventListener('change', function() {if (autoUpdate) {generateProjectionTable()}});
-document.getElementById('monthlyExpenses').addEventListener('change', function() {if (autoUpdate) {generateProjectionTable()}});
-document.getElementById('taxRate').addEventListener('change', function() {if (autoUpdate) {generateProjectionTable()}});
-
-// Add event listeners to all portfolio input fields
-document.getElementById('equities').addEventListener('change', function() {if (autoUpdate) {generateProjectionTable()}});
-document.getElementById('fixedIncome').addEventListener('change', function() {if (autoUpdate) {generateProjectionTable()}});
-document.getElementById('cash').addEventListener('change', function() {if (autoUpdate) {generateProjectionTable()}});
-document.getElementById('alternatives').addEventListener('change', function() {if (autoUpdate) {generateProjectionTable()}});
-document.getElementById('other').addEventListener('change', function() {if (autoUpdate) {generateProjectionTable()}});
+// selects/checkboxes → change is more reliable
+['stressTest','riskClass'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) {
+    el.addEventListener('change', () => { if (autoUpdate) generateProjectionTable(); });
+  }
+});
 
 // Print report
 document.getElementById('printReport').addEventListener('click', function() {
@@ -721,14 +711,13 @@ function loadCaseData(caseData) {
 }
 
 // Helper function to set input value and trigger change event
+// Helper: set value + fire both input/change so all listeners run
 function setInputValue(id, value) {
-  const element = document.getElementById(id);
-  if (element) {
-    element.value = value;
-    // Create and dispatch a change event to trigger any listeners
-    const event = new Event('change', { bubbles: true });
-    element.dispatchEvent(event);
-  }
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.value = value;
+  el.dispatchEvent(new Event('input', { bubbles: true }));
+  el.dispatchEvent(new Event('change', { bubbles: true }));
 }
 
 // Provide visual feedback for updated fields

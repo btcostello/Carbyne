@@ -6,8 +6,11 @@
   --link-color-hover: #3498db;
   --text-color: #333;
   --accent-color: #2980b9;
+  --color-gray: #ddd;
   --color-gray-light: whitesmoke;
-  --color-navy: #2c3e50;
+  --color-navy: #5D89AA;
+  --color-navy-light: #eaf6ff;
+  --color-navy-dark: #2c3e50;
   --body-background-color: var(--color-gray-light);
   --drawer-width: 600px;
   --section-spacing: calc(2 * var(--gap));
@@ -32,15 +35,15 @@ html, body {
 }
 body {
   background-color: var(--body-background-color);
+  margin: 0;
 }
 #page {
   transition: margin-left .3s;
-  padding: 30px 0;
 }
 .aks-display-flex {
   display: flex;
 }
-.container {
+.aks-container {
   width: var(--width-default);
   max-width: var(--width-max);
   margin: 0 auto;
@@ -74,9 +77,9 @@ h1 {
   margin-bottom: 10px;
 }
 h2 {
-  color: var(--color-navy);
-  padding-bottom: 10px;
-  border-bottom: 2px solid var(--link-color-hover);
+  color: var(--color-navy-dark);
+  padding-bottom: 5px;
+  border-bottom: 2px solid var(--color-navy);
 }
 p {
   margin: 0 0 1rem 0;
@@ -202,7 +205,7 @@ a:hover, a:focus {
 }
 .aks-alert-info {
   background-color: var(--color-navy-light);
-  border-color: var(--color-navy);
+  border-color: var(--color-navy-dark);
 }
 .aks-alert-success {
   background-color: var(--color-green-light);
@@ -214,43 +217,30 @@ a:hover, a:focus {
 /*************************
   MENU AND HEADER
 *************************/
-header {
-  background-color: var(--color-navy);
-  color: white;
-  padding: 20px 0;
+.aks-header {
+  background-color: #fff;
   margin-bottom: 30px;
-  border-radius: 8px;
+  padding: var(--gap) 0;
+  border-bottom: 1px solid var(--color-gray);
 }
-.header-container {
-  display: flex;
-  align-items: middle;
-  justify-content: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px 0 20px;
-  gap: 40px;
-  flex-wrap: wrap;
+.aks-header > .aks-display-flex {
+  gap: var(--section-spacing);
 }
 .logo a {
   display: block;
   background-color: #fff;
-  padding: 15px 15px 0 2px;
   border-radius: 8px;
+  padding: 5px;
+  margin: -5px;
 }
 .logo a:hover {
-  box-shadow: inset 0 0 0 2px;
+  box-shadow: 0 0 0 2px;
 }
-.header-text {
-  width: 500px;
-  text-align: left;
+.aks-header .aks-text-holder {
+  padding-top: 2px;
 }
-.header-text h1 {
-  margin: 0;
-}
-.header-text .intro {
-  margin-top: 10px;
+.aks-header .aks-text-holder p {
   font-size: 1.2rem;
-  margin-bottom: 20px;
 }
 /*************************
   DRAWER
@@ -374,7 +364,7 @@ label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  color: var(--color-navy);
+  color: var(--color-navy-dark);
 }
 input[type="number"], input[type="text"] {
   width: 100%;
@@ -579,13 +569,13 @@ line-height: 1;
   background-color:#2980b9 !important;
 }
 .highlight {
-  color: var(--accent-color);
+  color: var(--color-navy-dark);
   font-weight: bold;
   font-size: 1.2em;
   padding: 10px;
-  background-color: #eaf6ff;
+  background-color: var(--color-navy-light);
   border-radius: 4px;
-  border-left: 4px solid var(--accent-color);
+  border-left: 4px solid;
 }
 .highlight-updated {
   animation: highlight-pulse 2s ease-in-out;
