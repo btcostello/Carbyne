@@ -114,6 +114,15 @@ a {
 a:hover, a:focus {
   color: var(--link-color-hover);
 }
+.aks-color-inherit {
+  color: inherit !important;
+}
+.aks-color-inherit:hover {
+  color: var(--link-color-hover) !important;
+}
+.aks-color-inherit:focus {
+  color: var(--link-color-focus) !important;
+}
 /* BUTTON COLOR VARIABLES */
 .aks-btn {
   --btn-background-color: var(--link-color);
@@ -291,8 +300,8 @@ a:hover, a:focus {
   display: block;
   background-color: #fff;
   border-radius: 8px;
-  padding: 5px;
-  margin: -5px;
+  padding: 5px 5px 3px 5px;
+  margin: -5px -5px -3px -5px;
 }
 .logo a:hover {
   box-shadow: 0 0 0 2px;
