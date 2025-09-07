@@ -168,6 +168,7 @@ a:hover, a:focus {
   font-size: 1rem;
   padding: .8rem 1.7rem;
   cursor: pointer;
+  border-radius: 4px;
 }
 .aks-btn:not(:disabled):hover, .aks-btn:not(:disabled):focus {
   background-color: var(--btn-background-color-hover);

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carbyne Allocation&trade; Calculator</title>
+    <title>Carbyne Allocation&reg; Calculator</title>
     <link rel="shortcut icon" href="images/favicon.ico">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_forward_ios" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=visibility" />
@@ -27,7 +27,7 @@
             </div>
           </div>
           <button id="password-button" class="aks-btn">Enter</button>
-          <p>To get the password for the  Carbyne Allocation&trade; Calculator, contact Keith Friedman at <a href="mailto:keith.friedman@fbostrategies.com">keith.friedman@fbostrategies.com</a></p>
+          <p>To get the password for the Carbyne Allocation&reg; Calculator, contact Keith Friedman at <a href="mailto:keith.friedman@fbostrategies.com">keith.friedman@fbostrategies.com</a></p>
         </form>
       </div>
     </div>
@@ -39,8 +39,8 @@
             <a href="https://fbostrategies.com" target="_blank"><img src="images/carbyne-logo.png" alt="Carbyne Allocation" height="150"></a>
           </div>
           <div class="header-text">
-            <h1>Carbyne Allocation&trade;</h1>
-            <p class="intro">An asset repositioning approach to replace low-yield tax-inefficient assets with higher yield, tax-efficient life insurance.</p>
+            <h1>Carbyne Allocation&reg; Calculator</h1>
+            <p class="intro">The Carbyne Allocation&reg; strategy is an asset repositioning approach to replace low-yield tax-inefficient assets with higher yield, tax-efficient life insurance. This calculator demonstrates...</p>
           </div>
         </div>
       </header>
@@ -99,51 +99,10 @@
                 </div>
               </div>
             </section>
-      
-            <section class="card input-section">
-              <h2>Net Income</h2>
-              <p>A portion net income will be directed to your Carbyne Allocation&trade; based on your Target Fixed Income Allocation.</p>
-              <div class="form">
-                <div class="form-group">
-                  <label for="baseIncome">Base Income ($)</label>
-                  <input type="text" id="baseIncome" class="formatted-number" placeholder="Enter your base annual income" min="0" step="1000" value="0">
-                </div>
-                <div class="form-group">
-                  <label for="bonusIncome">Bonus Income ($)</label>
-                  <input type="text" id="bonusIncome" class="formatted-number" placeholder="Enter your bonus income" min="0" step="1000" value="0">
-                </div>
-                <div class="form-group">
-                  <label for="monthlyExpenses">Estimated Monthly Expenses ($)</label>
-                  <input type="text" id="monthlyExpenses" class="formatted-number" placeholder="Enter your monthly expenses" min="0" step="100" value="0">
-                </div>
-              </div>
-              <div class="results">
-                <div class="result-item">
-                  <span class="result-label">Total Income:</span>
-                  <span class="result-value" id="totalIncome">$120,000.00</span>
-                </div>
-                <div class="result-item">
-                  <span class="result-label">Taxes:</span>
-                  <span class="result-value" id="taxes">$30,000.00</span>
-                </div>
-                <div class="result-item">
-                  <span class="result-label">Annual Expenses:</span>
-                  <span class="result-value" id="annualExpenses">$60,000.00</span>
-                </div>
-                <div class="result-item">
-                  <span class="result-label">Annual Free Cash Flow:</span>
-                  <span class="result-value" id="freeCashFlow">$30,000.00</span>
-                </div>
-                <div class="result-item highlight">
-                  <span class="result-label">Annual Carbyne Allocation&trade; from Income:</span>
-                  <span class="result-value" id="twentyPercent">$6,000.00</span>
-                </div>
-              </div>
-            </section>
 
             <section class="card input-section">
               <h2>Current Portfolio</h2>
-              <p>The remaining portion of the Carbyne Allocation&trade; is funded by reallocating current fixed income and cash assets.</p>
+              <p>The remaining portion of the Carbyne Allocation&reg; is funded by reallocating current fixed income and cash assets.</p>
               <div class="form">
                 <div class="form-group">
                   <label for="equities">Equities ($)</label>
@@ -172,30 +131,71 @@
                   <span class="result-value" id="totalAssets">$400,000.00</span>
                 </div>
                 <div class="result-item">
-                  <span class="result-label">Total Contribution to Carbyne Allocation&trade;:</span>
+                  <span class="result-label">Total Contribution to Carbyne Allocation&reg;:</span>
                   <span class="result-value" id="totalAllocationToCarbyne">$150,000.00</span>
                 </div>
                 <div class="result-item highlight">
-                  <span class="result-label">Annual Carbyne Allocation&trade; from Current Portfolio:</span>
+                  <span class="result-label">Annual Carbyne Allocation&reg; from Current Portfolio:</span>
                   <span class="result-value" id="annualCarbyneFromPortfolio">$30,000.00</span>
+                </div>
+              </div>
+            </section>
+      
+            <section class="card input-section">
+              <h2>Net Income</h2>
+              <p>A portion net income will be directed to your Carbyne Allocation&reg; based on your Target Fixed Income Allocation.</p>
+              <div class="form">
+                <div class="form-group">
+                  <label for="baseIncome">Base Annual Income ($)</label>
+                  <input type="text" id="baseIncome" class="formatted-number" placeholder="Enter your base annual income" min="0" step="1000" value="0">
+                </div>
+                <div class="form-group">
+                  <label for="bonusIncome">Bonus Annual Income ($)</label>
+                  <input type="text" id="bonusIncome" class="formatted-number" placeholder="Enter your bonus income" min="0" step="1000" value="0">
+                </div>
+                <div class="form-group">
+                  <label for="monthlyExpenses">Estimated Monthly Expenses ($)</label>
+                  <input type="text" id="monthlyExpenses" class="formatted-number" placeholder="Enter your monthly expenses" min="0" step="100" value="0">
+                </div>
+              </div>
+              <div class="results">
+                <div class="result-item">
+                  <span class="result-label">Total Income:</span>
+                  <span class="result-value" id="totalIncome">$120,000.00</span>
+                </div>
+                <div class="result-item">
+                  <span class="result-label">Taxes:</span>
+                  <span class="result-value" id="taxes">$30,000.00</span>
+                </div>
+                <div class="result-item">
+                  <span class="result-label">Annual Expenses:</span>
+                  <span class="result-value" id="annualExpenses">$60,000.00</span>
+                </div>
+                <div class="result-item">
+                  <span class="result-label">Annual Free Cash Flow:</span>
+                  <span class="result-value" id="freeCashFlow">$30,000.00</span>
+                </div>
+                <div class="result-item highlight">
+                  <span class="result-label">Annual Carbyne Allocation&reg; from Income:</span>
+                  <span class="result-value" id="twentyPercent">$6,000.00</span>
                 </div>
               </div>
             </section>
 
             <section class="card input-section">
-              <h2>Proposed Carbyne Allocation&trade;</h2>
-              <p>Your Carbyne Allocation&trade; starts with a 5-year annual funding committment from existing savings and cash flow. This 5-year committment will fund a life insurance policy at it's maximum non-MEC level, which allows for maximized growth potential while retaining tax-preferred distributions.</p>
+              <h2>Proposed Carbyne Allocation&reg;</h2>
+              <p>Your Carbyne Allocation&reg; starts with a 5-year annual funding committment from existing savings and cash flow. This 5-year committment will fund a life insurance policy at it's maximum non-MEC level, which allows for maximized growth potential while retaining tax-preferred distributions.</p>
               <div class="results">
                 <div class="result-item">
-                  <span class="result-label">Annual Carbyne Allocation&trade; From Income:</span>
+                  <span class="result-label">Annual Carbyne Allocation&reg; From Income:</span>
                   <span class="result-value" id="annualCarbyneFromIncome">$6,000.00</span>
                 </div>
                 <div class="result-item">
-                  <span class="result-label">Annual Carbyne Allocation&trade; From Portfolio:</span>
+                  <span class="result-label">Annual Carbyne Allocation&reg; From Portfolio:</span>
                   <span class="result-value" id="portfolioAllocation">$30,000.00</span>
                 </div>
                 <div class="result-item highlight" style="font-size: 1.3em; background-color: #f1f8ff; border-left: 4px solid var(--secondary-color);">
-                  <span class="result-label">Total Annual Carbyne Allocation&trade;:</span>
+                  <span class="result-label">Total Annual Carbyne Allocation&reg;:</span>
                   <span class="result-value" id="totalAnnualCarbyneAllocation">$36,000.00</span>
                 </div>
               </div>
@@ -206,12 +206,12 @@
           <div class="projection-column">
       
             <section id="projectionSection" class="card">
-              <h2>Carbyne Allocation&trade; Projection</h2>
-              <p>The Carbyne Allocation&trade; offers substantially more growth potential than typical fixed assets and provides substantial death benefit protection. This projection model shows how repositioning your current Fixed Income assets and allocating a portion of cash flow over the next 5-years can results in substantially more value.</p>
+              <h2>Carbyne Allocation&reg; Projection</h2>
+              <p>The Carbyne Allocation&reg; offers substantially more growth potential than typical fixed assets and provides substantial death benefit protection. This projection model shows how repositioning your current Fixed Income assets and allocating a portion of cash flow over the next 5-years can results in substantially more value.</p>
               
               <div class="aks-display-flex aks-proj-wrapper">
                 <div class="aks-single">
-                  <h3>Carbyne Allocation&trade; Advantage</h3>
+                  <h3>Carbyne Allocation&reg; Advantage</h3>
                   <div class="form">
                   </div>
                   <table id="summaryTable" style="width: 100%; border-collapse: collapse;">
@@ -219,8 +219,8 @@
                       <tr>
                       <th rowspan="2" style="padding: 12px; text-align: center; border: 1px solid #ddd;">Attained Age</th>
                       <th rowspan="2" style="padding: 12px; text-align: center; border: 1px solid #ddd;">Current Allocation</th>
-                      <th rowspan="2" style="padding: 12px; text-align: center; border: 1px solid #ddd;">Carbyne Allocation&trade;</th>
-                      <th colspan="5" style="padding: 12px; text-align: center; border: 1px solid #ddd;">Carbyne Allocation&trade; Advantage</th>
+                      <th rowspan="2" style="padding: 12px; text-align: center; border: 1px solid #ddd;">Carbyne Allocation&reg;</th>
+                      <th colspan="5" style="padding: 12px; text-align: center; border: 1px solid #ddd;">Carbyne Allocation&reg; Advantage</th>
                       </tr>
                     </thead>
                     <tbody id="summaryTableBody">
@@ -259,7 +259,7 @@
                     <th rowspan="2" style="padding: 12px; text-align: center; border: 1px solid #ddd;">Age</th>
                     <th rowspan="2" style="padding: 12px; text-align: center; border: 1px solid #ddd;">Year</th>
                     <th colspan="5" style="padding: 12px; text-align: center; border: 1px solid #ddd;">Current Allocation</th>
-                    <th colspan="9" style="padding: 12px; text-align: center; border: 1px solid #ddd;">Carbyne Allocation&trade;</th>
+                    <th colspan="9" style="padding: 12px; text-align: center; border: 1px solid #ddd;">Carbyne Allocation&reg;</th>
                     <th colspan="2" style="padding: 12px; text-align: center; border: 1px solid #ddd;">Performance Difference</th>
                   </tr>
                   <tr>
@@ -292,10 +292,10 @@
         <button id="toggleDrawer" class="aks-btn" type="button" aria-label="Open Drawer" aria-controls="drawer" aria-expanded="false"><span class="aks-icon aks-icon-arrow-forward" aria-hidden="true"></span></button>
         <aside id="drawer" class="aks-drawer" aria-hidden="true">
           <div class="drawer-inner">
-            <h2 class="drawer-h2">Carbyne Allocation&trade; Explained</h2>
-            <p>Put simply, Carbyne Allocation™ is an asset repositioning strategy to balance asset growth potential, performance risk, tax and actuarial arbitrage. With Carbyne Allocation&trade;, low-yield, tax inefficient fixed income assets are replaced with a properly constructed (see product assumptions) cash value life insurance. The life insurance policy is funded near IRS limits to maximize tax-advantaged inside build-up and minimize insurance costs. The result is a higher yielding asset, with significant tax-advantages that results in increased wealth accumulation.</p>
+            <h2 class="drawer-h2">Carbyne Allocation&reg; Explained</h2>
+            <p>Put simply, Carbyne Allocation™ is an asset repositioning strategy to balance asset growth potential, performance risk, tax and actuarial arbitrage. With Carbyne Allocation&reg;, low-yield, tax inefficient fixed income assets are replaced with a properly constructed (see product assumptions) cash value life insurance. The life insurance policy is funded near IRS limits to maximize tax-advantaged inside build-up and minimize insurance costs. The result is a higher yielding asset, with significant tax-advantages that results in increased wealth accumulation.</p>
             <h2 class="drawer-h2">Carrier Selection</h2>
-            <p>For Carbyne Allocation&trade; to be succesful, the underlying life insurance policy must perform for many decades to come. That means that selecting the right carrier is critical. To select the right partner, we look for carriers that:</p>
+            <p>For Carbyne Allocation&reg; to be succesful, the underlying life insurance policy must perform for many decades to come. That means that selecting the right carrier is critical. To select the right partner, we look for carriers that:</p>
             <ul>
             <li>Are highly rated</li>
             <li>Have ownership structures that prioritize policy holders such as mutual carriers or mutual holding companies</li>
@@ -303,14 +303,14 @@
             <li>Have a history of treating clients well</li>
             </ul>
             <h2 class="drawer-h2">Product Selection</h2>
-            <p>Carbyne can be effective using other cash value life insurance products, such as Whole Life (WL) or Variable Universal Life (VUL). The use of Indexed Universal Life (IUL) is preferred because it offers a protective floor on annual indexed credits, thereby reducing the risk of policy underperformance. Carbyne Allocation&trade; is most effective for products that:</p>
+            <p>Carbyne can be effective using other cash value life insurance products, such as Whole Life (WL) or Variable Universal Life (VUL). The use of Indexed Universal Life (IUL) is preferred because it offers a protective floor on annual indexed credits, thereby reducing the risk of policy underperformance. Carbyne Allocation&reg; is most effective for products that:</p>
             <ul>
             <li>Have upside return potential</li>
             <li>Do not add excessive risk to the clients portfolio</li>
             <li>Offer additional benefits, such as long term care or critical illness riders to provide added protection.</li>
             </ul>
             <h2 class="drawer-h2">Product Design</h2>
-            <p>The Indexed Universal Life policy is designed to maximize cash value accumulation. The Carbyne Allocation&trade; does this by:</p>
+            <p>The Indexed Universal Life policy is designed to maximize cash value accumulation. The Carbyne Allocation&reg; does this by:</p>
             <ul>
             <li>Funding the policy for a limited time period of 1 to 7 years.</p>
             <li>Using an increasing death benefit in early years and level death benefit after the premium payment stop.</p>
