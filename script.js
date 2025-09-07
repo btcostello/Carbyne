@@ -796,36 +796,61 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Run calculator toggle
+// Reveal #projection, jump to it like an anchor, clean URL, then slide open
 document.addEventListener("DOMContentLoaded", function() {
   const button = document.querySelector(".aks-run-calc-wrapper button");
   const inputs = document.getElementById("inputs");
-  const projections = document.getElementById("projection");
+  const projection = document.getElementById("projection");
 
-  if (button && inputs && projections) {
-    button.addEventListener("click", function() {
-      const showingInputs = !inputs.classList.contains("aks-panel-closed");
+  if (!button || !inputs || !projection) return;
 
-      if (showingInputs) {
-        // Hide inputs, show projections
-        inputs.classList.add("aks-panel-closed");
-        projections.classList.remove("aks-panel-closed");
+  button.addEventListener("click", function() {
+    if (button.dataset.busy === "1") return;
+    button.dataset.busy = "1";
 
-        button.classList.remove("aks-btn-arrow-right");
-        button.classList.add("aks-btn-arrow-left");
-        button.querySelector("span").innerHTML = "Return to Inputs";
-      } else {
-        // Show inputs, hide projections
-        inputs.classList.remove("aks-panel-closed");
-        projections.classList.add("aks-panel-closed");
+    // 1) Make it participate in layout so the anchor jump has somewhere to land
+    projection.style.display = "block";
 
-        button.classList.remove("aks-btn-arrow-left");
-        button.classList.add("aks-btn-arrow-right");
-        button.querySelector("span").innerHTML = "Run Carbyne Allocation&reg; Analysis";
-      }
-    });
-  }
+    // 2) Anchor-style jump (most reliable way to hit exact top of the element)
+    //    This will scroll immediately (browser-native behavior).
+    const prevHash = window.location.hash;
+    if (projection.id !== "projection") projection.id = "projection";
+    window.location.hash = "#projection";
+
+    // 3) Clean the URL (remove the hash) without affecting scroll position
+    if (history.replaceState) {
+      history.replaceState(null, "", window.location.pathname + window.location.search);
+    } else {
+      // (old browsers just leave the hash)
+    }
+
+    // 4) Now run the slide-open after the jump has taken effect
+    //    Use a tiny delay to ensure the hash jump completes painting.
+    setTimeout(() => {
+      projection.classList.add("aks-collapsible", "aks-collapsed");
+      // next frame: expand
+      requestAnimationFrame(() => {
+        projection.style.maxHeight = projection.scrollHeight + "px";
+        projection.classList.remove("aks-collapsed");
+      });
+
+      // 5) Hide the button so it doesn't shift layout before the jump
+      button.style.display = "none";
+
+      // 6) Cleanup when the transition ends
+      const onEnd = (e) => {
+        if (e.propertyName !== "max-height") return;
+        projection.removeEventListener("transitionend", onEnd);
+        projection.style.maxHeight = "";
+        projection.classList.remove("aks-collapsible");
+        button.dataset.busy = ""; // allow future interactions if you ever re-hide/show
+      };
+      projection.addEventListener("transitionend", onEnd);
+    }, 20);
+  });
 });
+
+
 
 // Calculate initial values
 calculateTotalCarbyne();

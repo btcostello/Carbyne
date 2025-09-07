@@ -55,7 +55,6 @@ body {
   margin-bottom: 30px;
 }
 .aks-main-content {
-  --width-max: 700px;
   padding-top: 30px;
 }
 .aks-note {
@@ -81,13 +80,17 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
 }
 h1 {
-  font-size: 2.5rem;
+  font-size: 2.75rem;
   margin-bottom: 10px;
 }
-h2 {
+.aks-h2 {
+  font-size: 2rem;
+}
+.aks-h3 {
   color: var(--color-navy-dark);
   padding-bottom: 5px;
   border-bottom: 2px solid var(--color-navy);
+  font-size: 1.5rem;
 }
 p {
   margin: 0 0 1rem 0;
@@ -611,7 +614,7 @@ line-height: 1;
 /*************************
   ANALYSIS RESULTS
 *************************/
-.aks-calc-inputs-wrapper {
+.aks-calc-wrapper-inner {
   flex-direction: column;
   gap: 20px;
 }
@@ -621,17 +624,29 @@ line-height: 1;
 .aks-run-calc-wrapper .aks-btn {
   width: 100%;
 }
-.input-column {
-  flex: 1;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+#inputs, .aks-run-calc-wrapper {
+  --width-max: 700px;
 }
-.projection-column {
-  flex: 1;
-}
-.aks-panel-closed {
+/*
+#projection {
   display: none;
+}
+*/
+.aks-collapsible {
+  overflow: hidden;
+  transition: max-height 500ms ease, opacity 300ms ease;
+}
+.aks-collapsed {
+  max-height: 0;
+  opacity: 0;
+}
+
+
+.aks-chart-holder-outer {
+  flex: 1;
+}
+.aks-chart-holder-inner {
+  height: 100%;
 }
 
 .card {
@@ -640,9 +655,7 @@ line-height: 1;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   padding: var(--section-spacing);
 }
-.input-column .card {
-  flex: 400px;
-}
+
 .results {
   margin: 30px 0 0 0;
   list-style: none;
