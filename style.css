@@ -110,7 +110,8 @@ h1 {
   font-weight: 700;
   border-bottom: 1px solid;
   color: var(--color-navy-dark);
-  margin-bottom: 1rem;
+  margin-bottom: 10px;
+  margin-top: 10px;
   line-height: 1.2;
   padding-bottom: 3px;
   font-size: 1.1rem;
