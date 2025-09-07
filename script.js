@@ -796,6 +796,37 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+// Run calculator toggle
+document.addEventListener("DOMContentLoaded", function() {
+  const button = document.querySelector(".aks-run-calc-wrapper button");
+  const inputs = document.getElementById("inputs");
+  const projections = document.getElementById("projection");
+
+  if (button && inputs && projections) {
+    button.addEventListener("click", function() {
+      const showingInputs = !inputs.classList.contains("aks-panel-closed");
+
+      if (showingInputs) {
+        // Hide inputs, show projections
+        inputs.classList.add("aks-panel-closed");
+        projections.classList.remove("aks-panel-closed");
+
+        button.classList.remove("aks-btn-arrow-right");
+        button.classList.add("aks-btn-arrow-left");
+        button.querySelector("span").innerHTML = "Return to Inputs";
+      } else {
+        // Show inputs, hide projections
+        inputs.classList.remove("aks-panel-closed");
+        projections.classList.add("aks-panel-closed");
+
+        button.classList.remove("aks-btn-arrow-left");
+        button.classList.add("aks-btn-arrow-right");
+        button.querySelector("span").innerHTML = "Run Carbyne Allocation&reg; Analysis";
+      }
+    });
+  }
+});
+
 // Calculate initial values
 calculateTotalCarbyne();
 generateProjectionTable();

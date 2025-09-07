@@ -630,6 +630,10 @@ line-height: 1;
 .projection-column {
   flex: 1;
 }
+.aks-panel-closed {
+  display: none;
+}
+
 .card {
   background-color: #fff;
   border-radius: 4px;
