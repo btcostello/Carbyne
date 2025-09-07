@@ -121,8 +121,19 @@ h1 {
 p {
   margin: 0 0 1rem 0;
 }
-ul, ol {
+ol, ul {
   margin: 0 0 1rem 20px;
+  padding-left: 20px;
+}
+.aks-list li {
+  margin-bottom: 5px;
+  padding-left: 3px;
+}
+.aks-list li::marker {
+  color: var(--color-navy);
+}
+.aks-list li:last-child {
+  margin-bottom: 0;
 }
 h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, h6:first-child {
   margin-top: 0;
@@ -418,19 +429,21 @@ a:hover, a:focus {
   border: none;
   --btn-text-color: var(--link-color);
   background-color: #fff;
-  padding: 0 10px;
-  height: 70px;
+  padding: 5px 10px 0 10px;
+  height: 60px;
   border-radius: 0 50px 50px 0;
   top: 20px;
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  --btn-text-color-hover: var(--link-color-hover);
 }
-#toggleDrawer .aks-icon-arrow-forward {
+#toggleDrawer .aks-icon {
   transition: all .3s;
   font-size: 2rem;
 }
-#toggleDrawer .aks-icon-arrow-forward::after {
-  content: "\e5e1";
+#toggleDrawer .aks-icon::after {
+  content: "\e88e";
   font-family: 'Material Symbols Outlined';
   font-weight: normal;
   font-style: normal;
@@ -455,8 +468,12 @@ a:hover, a:focus {
 .aks-drawer-open #toggleDrawer {
   left: var(--drawer-width);
 }
-.aks-drawer-open #toggleDrawer span {
-  transform: rotate(180deg);
+.aks-drawer-open #toggleDrawer .aks-icon {
+  position: relative;
+  left: 5px;
+}
+.aks-drawer-open #toggleDrawer .aks-icon::after {
+  content: "\e5e0";
 }
 .drawer-inner {
   padding: 20px;
@@ -483,6 +500,10 @@ footer .aks-container {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+body:not(.aks-proj-showing) footer .aks-container {
+  margin-top: var(--gap);
+  border-top: 1px solid var(--color-gray);
 }
 /*************************
   FORM ELEMENTS
@@ -707,9 +728,6 @@ line-height: 1;
 }
 .aks-proj-summary-wrapper-inner .aks-single {
   flex: 400px;
-}
-.aks-chart-holder-outer {
-  flex: 1;
 }
 .aks-chart-holder-inner {
   height: 100%;

@@ -1,17 +1,4 @@
 /*************************
-  DRAWER
-*************************/
-document.getElementById('toggleDrawer').addEventListener('click', function () {
-  const body = document.body;
-  const drawer = document.getElementById('drawer');
-  const button = this;
-  body.classList.toggle('aks-drawer-open');
-  const isOpen = body.classList.contains('aks-drawer-open');
-  drawer.setAttribute('aria-hidden', (!isOpen).toString());
-  button.setAttribute('aria-expanded', isOpen.toString());
-});
-
-/*************************
   MAIN LOGIC
 *************************/
 var autoUpdate = true
@@ -390,7 +377,9 @@ function generateProjectionTable() {
     currentAllocationStart = currentEnd;
     carbyneAllocationStart = carbyneEnd;
   }
-  createAssetsComparisonChart(agesArray, currentAssetsArray, carbyneHeirsArray, carbyneWithInsuranceArray);
+  if ($('#projection').is(':visible')) {
+    createAssetsComparisonChart(agesArray, currentAssetsArray, carbyneHeirsArray, carbyneWithInsuranceArray);
+  }
 };
 
 // Create the chart
@@ -759,45 +748,85 @@ document.querySelectorAll('.formatted-number').forEach(input => {
   });
 });
 
-// Password entry form
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('password-form');
-  const input = document.getElementById('password');
-  const toggleBtn = form.querySelector('.aks-toggle-pword-btn');
-  const control = form.querySelector('.aks-form-control');
-  const overlay = document.getElementById('password-overlay');
+/*************************
+  DRAWER
+*************************/
+$('#toggleDrawer').on('click', function() {
+  const $body = $('body');
+  const $drawer = $('#drawer');
+  const $button = $(this);
+
+  $body.toggleClass('aks-drawer-open');
+
+  const isOpen = $body.hasClass('aks-drawer-open');
+  $drawer.attr('aria-hidden', (!isOpen).toString());
+  $button.attr('aria-expanded', isOpen.toString());
+});
+
+/*************************
+  PASSWORD ENTRY
+*************************/
+$(function() {
+  const $form = $('#password-form');
+  const $input = $('#password');
+  const $toggleBtn = $form.find('.aks-toggle-pword-btn');
+  const $control = $form.find('.aks-form-control');
+  const $overlay = $('#password-overlay');
   const correctPassword = 'c4rbyn3';
-  toggleBtn.addEventListener('click', () => {
-    const isHidden = input.getAttribute('type') === 'password';
-    input.setAttribute('type', isHidden ? 'text' : 'password');
-    toggleBtn.classList.toggle('is-revealed', isHidden);
-    toggleBtn.setAttribute('aria-pressed', String(isHidden));
-    toggleBtn.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
-    input.focus();
+
+  // Toggle password visibility
+  $toggleBtn.on('click', function() {
+    const isHidden = $input.attr('type') === 'password';
+    $input.attr('type', isHidden ? 'text' : 'password');
+    $toggleBtn.toggleClass('is-revealed', isHidden);
+    $toggleBtn.attr({
+      'aria-pressed': String(isHidden),
+      'aria-label': isHidden ? 'Hide password' : 'Show password'
+    });
+    $input.trigger('focus');
   });
+
   // Handle submit
-  form.addEventListener('submit', (e) => {
+  $form.on('submit', function(e) {
     e.preventDefault();
-    const oldError = form.querySelector('.aks-alert.aks-alert-error');
-    if (oldError) oldError.remove();
-    const password = input.value.trim();
+    $form.find('.aks-alert.aks-alert-error').remove();
+    const password = $.trim($input.val());
     if (password === correctPassword) {
-      if (overlay) overlay.style.display = 'none';
-      input.value = '';
+      if ($overlay.length) $overlay.hide();
+      $input.val('');
     } else {
-      const error = document.createElement('p');
-      error.className = 'aks-alert aks-alert-error';
-      error.textContent = 'Incorrect password. Please try again.';
-      control.insertAdjacentElement('afterend', error);
-      input.value = '';
-      input.focus();
+      const $error = $('<p>', {
+        class: 'aks-alert aks-alert-error',
+        text: 'Incorrect password. Please try again.'
+      });
+      $control.after($error);
+      $input.val('').trigger('focus');
     }
   });
 });
 
+/*************************
+  RUN CALCULATION TRIGGER
+*************************/
+const $runWrap = $('.aks-run-calc-wrapper');
 
+$runWrap.on('click', 'button', function () {
+  const $projection = $('#projection');
+  $("body").addClass("aks-proj-showing");
 
+  // Reveal + slide open
+  $projection.removeAttr('hidden').attr('aria-hidden', 'false').stop(true, true).slideDown(300, function () {
+      // Build table + chart after visible so Chart.js sizes correctly
+      generateProjectionTable();
+      // Scroll to top of #projection
+      window.scrollTo({
+        top: $projection.offset().top - 50,
+        behavior: 'smooth'
+      });
+    });
+  $runWrap.slideUp(200);
+});
 
 // Calculate initial values
 calculateTotalCarbyne();
-generateProjectionTable();
+// generateProjectionTable();
