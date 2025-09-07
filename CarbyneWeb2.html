@@ -47,7 +47,7 @@
 
       <main class="aks-container aks-main-content">
 
-        <div class="aks-actions-wrapper aks-display-flex">
+        <div class="aks-actions-wrapper aks-display-flex" style="display: none;">
           <button id="printReport" class="aks-btn"><span class="aks-icon"></span>Print Report</button>
           <button id="saveCaseButton" class="save-button aks-btn"><span class="aks-icon"></span>Save Case</button>
           <button id="loadCaseButton" class="load-button aks-btn"><span class="aks-icon"></span>Load Case</button>
@@ -56,7 +56,7 @@
 
         <div class="layout-aks-container">
     
-          <div class="input-column">
+          <div class="aks-calc-inputs-wrapper aks-display-flex">
             <section class="card input-section">
               <h2>Client Information</h2>
               <div class="form">
@@ -182,6 +182,15 @@
                   <input type="checkbox" id="stressTest" name="stressTest">
                 </div>
 
+          </div>
+
+          <div class="aks-run-calc-wrapper">
+            <button type="button" class="aks-btn aks-btn-arrow aks-btn-arrow-right"><span>Run Carbyne Allocation&reg; Analysis</span></button>
+          </div>
+
+
+          <div class="projection-column" style="display: none">
+
             <section class="card input-section">
               <h2>Proposed Carbyne Allocation&reg;</h2>
               <p>Your Carbyne Allocation&reg; starts with a 5-year annual funding committment from existing savings and cash flow. This 5-year committment will fund a life insurance policy at it's maximum non-MEC level, which allows for maximized growth potential while retaining tax-preferred distributions.</p>
@@ -194,16 +203,12 @@
                   <span class="result-label">Annual Carbyne Allocation&reg; From Portfolio:</span>
                   <span class="result-value" id="portfolioAllocation">$30,000.00</span>
                 </li>
-                <li class="result-item highlight" style="font-size: 1.3em; background-color: #f1f8ff; border-left: 4px solid var(--secondary-color);">
+                <li class="result-item highlight">
                   <strong class="result-label">Total Annual Carbyne Allocation&reg;:</strong>
                   <span class="result-value" id="totalAnnualCarbyneAllocation">$36,000.00</span>
                 </li>
               </ul>
             </section>
-      
-          </div>
-
-          <div class="projection-column">
       
             <section id="projectionSection" class="card">
               <h2>Carbyne Allocation&reg; Projection</h2>
@@ -325,10 +330,14 @@
           </div>
         </aside>
       </main>
-      <footer class="aks-container">
-        <p>&copy; <script>document.write(new Date().getFullYear());</script> The Ridgeback Group | FBO Strategies LLC. All Rights Reserved.</p>
-        <p><a href="https://theridgebackgroup.com">theridgebackgroup.com</a></p>
-        <p><a href="https://fbostrategies.com">fbostrategies.com</a></p>
+      <footer>
+        <div class="aks-container">
+          <p>&copy; <script>document.write(new Date().getFullYear());</script> The Ridgeback Group | FBO Strategies LLC. All Rights Reserved.</p>
+          <ul class="aks-footer-links">
+            <li><a href="https://theridgebackgroup.com" target="_blank">theridgebackgroup.com</a></li>
+            <li><a href="https://fbostrategies.com" target="_blank">fbostrategies.com</a></li>
+          </ul>
+        </div>
       </footer>
     </div>
     <script src="script.js"></script>

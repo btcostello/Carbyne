@@ -56,6 +56,7 @@ body {
 }
 .aks-main-content {
   --width-max: 700px;
+  padding-top: 30px;
 }
 .aks-note {
   background-color: var(--color-gray-light);
@@ -195,6 +196,60 @@ a:hover, a:focus {
   border: 2px solid var(--color-gray-dark);
   cursor: not-allowed;
 }
+/* BUTTON WITH ARROW */
+.aks-btn.aks-btn-arrow,
+.aks-btn.aks-btn-arrow-left,
+.aks-btn.aks-btn-arrow-right {
+  padding-left: 1.8rem;
+  padding-right: 1.8rem;
+}
+.aks-btn.aks-btn-arrow-left > span,
+.aks-btn.aks-btn-arrow-right > span {
+  position: relative;
+}
+.aks-btn.aks-btn-arrow-left > span::before,
+.aks-btn.aks-btn-arrow-right > span::after {
+  content: "";
+  position: absolute;
+  width: 0.5rem;
+  height: 0.5rem;
+  top: calc(50% - 0.25rem);
+  opacity: 0;
+  transition: 0.3s all ease;
+  border-top: 2px solid currentColor;
+}
+.aks-btn.aks-btn-arrow-right > span::after {
+  transform: rotate(45deg);
+  margin-left: -1rem;
+  border-right: 2px solid currentColor;
+  right: -1rem;
+}
+.aks-btn.aks-btn-arrow-left > span::before {
+  transform: rotate(-45deg);
+  margin-right: -1rem;
+  border-left: 2px solid currentColor;
+  left: -1rem;
+}
+.aks-btn.aks-btn-arrow-right:not(:disabled):hover,
+.aks-btn.aks-btn-arrow-right:not(:disabled):focus {
+  padding-right: 2.3rem;
+  padding-left: 1.3rem;
+}
+.aks-btn.aks-btn-arrow-left:not(:disabled):hover,
+.aks-btn.aks-btn-arrow-left:not(:disabled):focus {
+  padding-left: 2.3rem;
+  padding-right: 1.3rem;
+}
+.aks-btn.aks-btn-arrow-right:not(:disabled):hover > span::after,
+.aks-btn.aks-btn-arrow-right:not(:disabled):focus > span::after {
+  opacity: 1;
+  margin-left: 0.5rem;
+}
+.aks-btn.aks-btn-arrow-left:not(:disabled):hover > span::before,
+.aks-btn.aks-btn-arrow-left:not(:disabled):focus > span::before {
+  opacity: 1;
+  margin-right: 0.5rem;
+}
 /*************************
   ALERT BOXES
 *************************/
@@ -333,9 +388,18 @@ a:hover, a:focus {
 *************************/
 footer {
   text-align: center;
-  margin-top: 30px;
+  margin-top: var(--section-spacing);
   color: #777;
   font-size: 0.9rem;
+}
+footer .aks-container {
+  padding: var(--gap) 0;
+  border-top: 1px solid var(--color-gray);
+}
+.aks-footer-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 /*************************
   FORM ELEMENTS
@@ -538,6 +602,16 @@ line-height: 1;
 /*************************
   ANALYSIS RESULTS
 *************************/
+.aks-calc-inputs-wrapper {
+  flex-direction: column;
+  gap: 20px;
+}
+.aks-run-calc-wrapper {
+  margin-top: var(--gap);
+}
+.aks-run-calc-wrapper .aks-btn {
+  width: 100%;
+}
 .input-column {
   flex: 1;
   display: flex;
