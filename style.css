@@ -827,6 +827,13 @@ line-height: 1;
 #projectionTableBody tr:nth-child(odd) {
   background-color: #f8f9fa;
 }
+#projectionTable th, #projectionTable td {
+  border: 1px solid #bccbd3;
+}
+#projectionTable tbody td:nth-child(n+3) {
+  min-width: 110px;
+}
+/*
 #projectionTableBody td:nth-child(7),
 #projectionTableBody td:nth-child(16) {
   border-right: 2px solid var(--color-navy);
@@ -837,7 +844,7 @@ line-height: 1;
 #projectionTable thead > tr:nth-child(2) th:nth-child(14) {
   border-right: 2px solid;
 }
-
+*/
 /* negative number formatting  #ad1a29;*/
 [data-val*="-"] {
   color: var(--color-red);
