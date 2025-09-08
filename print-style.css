@@ -11,16 +11,22 @@ main {
   margin-bottom: var(--gap);
 }
 @page {
-  margin: var(--gutter) 0;
+  margin: .75in 0;
 }
 /* elements to hide */
 .aks-actions-wrapper, #toggleDrawer, .aks-run-calc-wrapper, .aks-table-overflow-wrapper {
   display: none !important;
 }
 /* HEADER */
+.aks-header {
+  border-bottom: none;
+  padding-bottom: 0;
+}
 .aks-header > .aks-display-grid {
   grid-template-columns: 1fr;
   gap: 15px;
+  border-bottom: 1px solid var(--color-gray);
+  padding-bottom: 15px;
 }
 .aks-header > .aks-display-grid h1 {
   font-size: 2rem;
@@ -30,6 +36,9 @@ main {
 }
 .aks-header .aks-text-holder p {
   font-size: 1rem;
+}
+.aks-main-content {
+  padding-top: 20px;
 }
 /* FOOTER */
 footer {
@@ -116,4 +125,21 @@ input:focus, select:focus {
 #summaryTable th:last-child,
 #summaryTable td:last-child {
   padding-right: 0;
+}
+#projection {
+  page-break-before: always;
+  padding-top: 0;
+  margin-top: 0;
+}
+.aks-calc-wrapper-inner {
+  gap: var(--gap);
+}
+.aks-h3::after {
+  margin-bottom: 15;
+}
+.aks-calc-wrapper-inner .card .aks-h3 + p {
+  margin-bottom: 5px;
+}
+.results {
+  margin-top: 15px;
 }
