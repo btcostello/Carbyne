@@ -500,83 +500,9 @@ function createAssetsComparisonChart(ages, currentAssets, carbyneHeirs, carbyneW
 });
 
 // Print report
-document.getElementById('printReport').addEventListener('click', function() {
-  document.querySelectorAll('.card').forEach(card => {
-    card.dataset.originalDisplay = card.style.display;
-    card.style.display = 'block';
-  });
-  // Add a temporary print stylesheet
-  const printStyle = document.createElement('style');
-  printStyle.id = 'print-style';
-  printStyle.innerHTML = `
-    @media print {
-      body {
-        background-color: white !important;
-      }
-      .container {
-        max-width: 100% !important;
-      }
-      header, footer {
-        margin-bottom: 20px !important;
-      }
-      .card {
-        page-break-inside: avoid;
-        margin-bottom: 30px !important;
-        box-shadow: none !important;
-        border: 1px solid #ddd !important;
-      }
-      h2 {
-        margin-top: 20px !important;
-      }
-      .continue-button-container, 
-      .form-group button {
-        display: none !important;
-      }
-      /* Make sure the table fits on the page */
-      .table-container {
-        overflow-x: visible !important;
-        font-size: 8pt !important;
-      }
-      #projectionTable {
-        font-size: 8pt !important;
-        width: 100% !important;
-      }
-      #projectionTable th,
-      #projectionTable td {
-        padding: 4px !important;
-      }
-      /* Add a page break before the projection section */
-      #projectionSection {
-        page-break-before: always;
-      }
-      /* Always show chart on its own page */
-      .chart-container {
-        page-break-before: always;
-        page-break-after: always;
-        height: 500px !important;
-      }
-    }
-  `;
-  document.head.appendChild(printStyle);
-  
-  // Trigger print dialog
-  window.print();
-  
-  // Clean up after printing
-  setTimeout(function() {
-    // Remove the print style
-    document.head.removeChild(document.getElementById('print-style'));
-    
-    // Restore original display states
-    document.querySelectorAll('.card').forEach(card => {
-      if (card.dataset.originalDisplay) {
-        card.style.display = card.dataset.originalDisplay;
-        delete card.dataset.originalDisplay;
-      }
-    });
-  }, 1000); // Short delay to ensure print dialog has opened
+$("#printReport").click(function() {
+    window.print();
 });
-
 // Save case
 function saveCase() {
   // Collect all input values
