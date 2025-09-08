@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=print" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=save" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=find_replace" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=help" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" media="print" href="print-style.css" />
   </head>
@@ -25,7 +26,7 @@
           <div class="aks-form-control aks-form-password-field">
             <label class="sr-only" for="password">Password:</label>
             <div class="aks-pword-toggle-wrapper aks-display-flex">
-              <input id="password" name="password" type="password" placeholder="Password" required value="c4rbyn3">
+              <input id="password" name="password" type="password" placeholder="Password" required>
               <button class="aks-btn-link aks-toggle-pword-btn" type="button" aria-label="Toggle sensitive"><span class="aks-icon aks-icon-eye" aria-hidden="true"></span></button>
             </div>
           </div>
@@ -182,10 +183,7 @@
             </section>
           </div>
 
-          <div class="form-group" style="display: none;">
-            <label for="stressTest">Run Stress Test</label>
-            <input type="checkbox" id="stressTest" name="stressTest">
-          </div>
+
 
         </div>
 
@@ -269,6 +267,20 @@
                     </div>
                   </div>
                 </figure>
+
+
+
+            <div class="aks-switch-wrapper-outer aks-display-flex">
+              <label class="aks-switch-wrapper-label" for="stressTest">
+                <span class="aks-label-text">Run Stress Test</span>
+                <div class="aks-switch-wrapper-inner">
+                  <input class="sr-only" type="checkbox" id="stressTest" name="stressTest" aria-describedby="stressDesc">
+                  <span class="aks-slider-round"></span>
+                </div>
+              </label>
+              <div class="aks-tooltip-wrapper"><button type="button" class="aks-tooltip-btn aks-link"><span class="sr-only">Information about Stress Test</span></button><div class="aks-tooltip-info"><p id="stressDesc">The stress test scenario assumes the policy receives a 0% credit once every 7 years. 5 years This is actually a double stress test accounting for zeros more than once. The model assumed 6.50% return already accounts for zeros occurring because it reflects historical average returns.</p></div></div>
+            </div>
+                      
 
                 <div class="aks-table-overflow-wrapper">
                   <table id="projectionTable" class="aks-table aks-table-hover">
@@ -354,8 +366,6 @@
             </ul>
             <h3>Product Assumptions</h3>
             <p>This demonstration is based on a generic Indexed Universal Life (IUL) product. It is not based on any particular carrier's product, but is similar to many products on the market. The product you select will have different costs and benefits. This demonstration assumes a 6.50% annual S&P 500&reg; index credit and current charges, this is consistent with historical returns for indexed account with an 10.5% cap and 0% floor.</p>
-            <h3>Stress Test</h3>
-            <p>The stress test scenario assumes the policy receives a 0% credit once every 7 years. 5 years This is actually a double stress test accounting for zeros more than once. The model assumed 6.50% return already accounts for zeros occurring because it reflects historical average returns.</p>
             <h3>Disclosures</h3>
             <p>This exploratory demonstration is not a life insurance illustration. It does not reflect any particular product or carrier. The primary reason to buy life insurance is death benefit. Life insurance cash value growth may qualify for favorable tax treatment. Nothing in this presentation should be construed as a guarantee or tax advice.</p>
           </div>

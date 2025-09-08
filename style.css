@@ -210,6 +210,13 @@ a:hover, a:focus {
 .aks-color-inherit:focus {
   color: var(--link-color-focus) !important;
 }
+button.aks-link {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  font-size: inherit;
+  font-family: inherit;
+}
 /* BUTTON COLOR VARIABLES */
 .aks-btn {
   --btn-background-color: var(--link-color);
@@ -593,6 +600,117 @@ select:hover {
 }
 .form-group .aks-btn {
   border-radius: 4px;
+}
+/* toggle switch */
+.aks-switch-wrapper-outer {
+  gap: 5px;
+  margin-bottom: 20px;
+}
+.aks-switch-wrapper-inner {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+.aks-switch-wrapper-label {
+  display: inline-flex;
+  flex-direction: column;
+  margin-bottom: 0;
+}
+.aks-switch-wrapper-label .aks-label-text {
+  margin-bottom: 5px;
+}
+.aks-switch-wrapper-inner .aks-slider-round {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 50px;
+}
+.aks-switch-wrapper-inner .aks-slider-round::before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: #fff;
+  transition: .4s;
+  border-radius: 100%;
+}
+.aks-switch-wrapper-inner input:checked + .aks-slider-round {
+  background-color: var(--link-color-hover);
+}
+.aks-switch-wrapper-inner input:focus + .aks-slider-round {
+  box-shadow: 0 0 1px var(--link-color-hover);
+}
+.aks-switch-wrapper-inner input:checked + .aks-slider-round::before {
+  transform: translateX(26px);
+}
+/* tooltip */
+.aks-tooltip-wrapper {
+  position: relative;
+  align-self: flex-start;
+}
+.aks-tooltip-btn::after {
+  content: "\e887";
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+.aks-tooltip-info {
+  top: 50%;
+  right: 0;
+  transform: translate(calc(100% + 12px),-50%);
+  background-color: #121943;
+  border-radius: 4px;
+  color: #fff;
+  display: flex;
+  opacity: 0;
+  padding: 12px;
+  position: absolute;
+  transition: opacity 0.25s ease-in-out;
+  visibility: hidden;
+  z-index: 10;
+  width: 350px;
+  line-height: 1.4;
+  font-size: .9rem;
+}
+.aks-tooltip-info::before {
+  content: "";
+  top: 50%;
+  left: -32px;
+  transform: translate(calc(100% + 5px), -50%) rotate(-90deg);
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid #121943;
+  height: 0;
+  position: absolute;
+  width: 0;
+  z-index: 10;
+}
+.aks-tooltip-btn:hover + .aks-tooltip-info {
+  transition-delay: 0.2s;
+}
+.aks-tooltip-btn:hover + .aks-tooltip-info,
+.aks-tooltip-btn:focus + .aks-tooltip-info {
+  opacity: 1;
+  transition-property: opacity;
+  transition: 0.25s ease-in-out;
+  visibility: visible;
 }
 /*************************
   PASSWORD ENTRY

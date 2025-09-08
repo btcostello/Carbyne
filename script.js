@@ -1,3 +1,14 @@
+// MAKING IT EASIER FOR TESTING
+$('#password').val('c4rbyn3')
+$('#equities').val('1000000');
+$('#fixedIncome').val('500000');
+$('#cash').val('0');
+$('#alternatives').val('0');
+$('#other').val('1000000');
+$('#baseIncome').val('240000');
+$('#bonusIncome').val('300000');
+$('#monthlyExpenses').val('20000');
+
 /*************************
   MAIN LOGIC
 *************************/
@@ -399,8 +410,8 @@ function createAssetsComparisonChart(ages, currentAssets, carbyneHeirs, carbyneW
         {
           label: 'Current Allocation',
           data: currentAssets,
-          borderColor: 'rgb(231, 76, 60)', // Accent color
-          backgroundColor: 'rgba(231, 76, 60, 0.1)',
+          borderColor: '#b62616',
+          backgroundColor: '#fceae8',
 
           tension: 0.1,
           borderWidth: 2
@@ -408,16 +419,16 @@ function createAssetsComparisonChart(ages, currentAssets, carbyneHeirs, carbyneW
         {
           label: 'Carbyne Allocation®',
           data: carbyneHeirs,
-          borderColor: 'rgb(52, 152, 219)', // Secondary color
-          backgroundColor: 'rgba(52, 152, 219, 0.1)',
+          borderColor: '#5D89AA',
+          backgroundColor: '#eaf6ff',
           tension: 0.1,
           borderWidth: 2
         },
         {
           label: 'Carbyne Allocation® Advantage',
           data: carbyneWithInsurance,
-          borderColor: 'rgb(44, 62, 80)', // Primary color
-          backgroundColor: 'rgba(44, 62, 80, 0.1)',
+          borderColor: '#387a58',
+          backgroundColor: '#e7f4ed',
           tension: 0.1,
           borderWidth: 2,
           borderDash: [5, 5]
@@ -499,10 +510,6 @@ function createAssetsComparisonChart(ages, currentAssets, carbyneHeirs, carbyneW
   }
 });
 
-// Print report
-$("#printReport").click(function() {
-    window.print();
-});
 // Save case
 function saveCase() {
   // Collect all input values
@@ -675,15 +682,20 @@ document.querySelectorAll('.formatted-number').forEach(input => {
 });
 
 /*************************
+  PRINT
+*************************/
+$("#printReport").click(function() {
+    window.print();
+});
+
+/*************************
   DRAWER
 *************************/
 $('#toggleDrawer').on('click', function() {
   const $body = $('body');
   const $drawer = $('#drawer');
   const $button = $(this);
-
   $body.toggleClass('aks-drawer-open');
-
   const isOpen = $body.hasClass('aks-drawer-open');
   $drawer.attr('aria-hidden', (!isOpen).toString());
   $button.attr('aria-expanded', isOpen.toString());
@@ -699,8 +711,6 @@ $(function() {
   const $control = $form.find('.aks-form-control');
   const $overlay = $('#password-overlay');
   const correctPassword = 'c4rbyn3';
-
-  // Toggle password visibility
   $toggleBtn.on('click', function() {
     const isHidden = $input.attr('type') === 'password';
     $input.attr('type', isHidden ? 'text' : 'password');
@@ -711,8 +721,6 @@ $(function() {
     });
     $input.trigger('focus');
   });
-
-  // Handle submit
   $form.on('submit', function(e) {
     e.preventDefault();
     $form.find('.aks-alert.aks-alert-error').remove();
@@ -735,16 +743,11 @@ $(function() {
   RUN CALCULATION TRIGGER
 *************************/
 const $runWrap = $('.aks-run-calc-wrapper');
-
 $runWrap.on('click', 'button', function () {
   const $projection = $('#projection');
   $("body").addClass("aks-proj-showing");
-
-  // Reveal + slide open
   $projection.removeAttr('hidden').attr('aria-hidden', 'false').stop(true, true).slideDown(300, function () {
-      // Build table + chart after visible so Chart.js sizes correctly
       generateProjectionTable();
-      // Scroll to top of #projection
       window.scrollTo({
         top: $projection.offset().top - 50,
         behavior: 'smooth'
