@@ -871,13 +871,15 @@ line-height: 1;
   gap: var(--gap);
   grid-template-columns: 1fr 1fr;
 }
-.aks-drawer-open .aks-proj-summary-wrapper-inner {
-  grid-template-columns: 1fr;
+body:not(.aks-drawer-open) .aks-chart-holder-outer {
+  margin-bottom: -90px;
 }
 .aks-chart-holder-inner {
   height: 100%;
 }
-
+.aks-drawer-open .aks-proj-summary-wrapper-inner {
+  grid-template-columns: 1fr;
+}
 .card {
   background-color: #fff;
   border-radius: 4px;
