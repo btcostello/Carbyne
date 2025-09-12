@@ -223,50 +223,96 @@
                 <h3 class="aks-h3">Carbyne Allocation&reg; Projection</h3>
                 <p>The Carbyne Allocation&reg; offers substantially more growth potential than typical fixed assets and provides substantial death benefit protection. This projection model shows how repositioning your current Fixed Income assets and allocating a portion of cash flow over the next 5-years can results in substantially more value.</p>
 
-                <figure class="aks-proj-summary-wrapper-outer">
-                  <figcaption id="summaryCaption" class="aks-h4">Summary of Asset Growth over Time</figcaption>
-                  <div class="aks-display-grid aks-proj-summary-wrapper-inner">
-                    <div class="aks-single">
-                  
-                      <table id="summaryTable" class="aks-table aks-table-hover" aria-describedby="summaryCaption">
-                        <thead>
-                          <tr>
-                            <th rowspan="2">Age</th>
-                            <th rowspan="2">Current Allocation</th>
-                            <th rowspan="2">Carbyne Allocation&reg;</th>
-                            <th colspan="5">Carbyne Allocation&reg; Advantage</th>
-
-                          </tr>
-                        </thead>
-                        <tbody id="summaryTableBody">
-                          <tr>
-                            <th>80</th>
-                            <th>######</th>
-                            <th>######</th>
-                            <th class="advCell">######</th>
-                          </tr>
-                          <tr>
-                            <th>90</th>
-                            <th>######</th>
-                            <th>######</th>
-                            <th class="advCell">######</th>
-                          </tr>
-                          <tr>
-                            <th>100</th>
-                            <th>######</th>
-                            <th>######</th>
-                            <th class="advCell">######</th>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div class="aks-single aks-chart-holder-outer">
-                      <div class="aks-chart-holder-inner">
-                        <canvas id="assetsComparisonChart"></canvas>
+                <div class="aks-standard-version">
+                  <figure class="aks-proj-summary-wrapper-outer">
+                    <figcaption id="summaryCaption-standard" class="aks-h4">Summary of Asset Growth over Time</figcaption>
+                    <div class="aks-display-grid aks-proj-summary-wrapper-inner">
+                      <div class="aks-single">
+                        <table id="summaryTable-standard" class="aks-table aks-table-hover" aria-describedby="summaryCaption-standard">
+                          <thead>
+                            <tr>
+                              <th rowspan="2">Age</th>
+                              <th rowspan="2">Current Allocation</th>
+                              <th rowspan="2">Carbyne Allocation&reg;</th>
+                              <th colspan="5">Carbyne Allocation&reg; Advantage</th>
+                            </tr>
+                          </thead>
+                          <tbody id="summaryTableBody-standard">
+                            <tr>
+                              <th>80</th>
+                              <th>######</th>
+                              <th>######</th>
+                              <th class="advCell">######</th>
+                            </tr>
+                            <tr>
+                              <th>90</th>
+                              <th>######</th>
+                              <th>######</th>
+                              <th class="advCell">######</th>
+                            </tr>
+                            <tr>
+                              <th>100</th>
+                              <th>######</th>
+                              <th>######</th>
+                              <th class="advCell">######</th>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="aks-single aks-chart-holder-outer">
+                        <div class="aks-chart-holder-inner">
+                          <canvas id="assetsComparisonChart-standard"></canvas>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </figure>
+                  </figure>
+                </div>
+
+                <div class="aks-stress-test-version">
+                  <figure class="aks-proj-summary-wrapper-outer">
+                    <figcaption id="summaryCaption-stress" class="aks-h4">Summary of Asset Growth over Time (Stress Tested)</figcaption>
+                    <div class="aks-display-grid aks-proj-summary-wrapper-inner">
+                      <div class="aks-single">
+                        <table id="summaryTable-stress" class="aks-table aks-table-hover" aria-describedby="summaryCaption-stress">
+                          <thead>
+                            <tr>
+                              <th rowspan="2">Age</th>
+                              <th rowspan="2">Current Allocation</th>
+                              <th rowspan="2">Carbyne Allocation&reg;</th>
+                              <th colspan="5">Carbyne Allocation&reg; Advantage</th>
+
+                            </tr>
+                          </thead>
+                          <tbody id="summaryTableBody-stress">
+                            <tr>
+                              <th>80</th>
+                              <th>######</th>
+                              <th>######</th>
+                              <th class="advCell">######</th>
+                            </tr>
+                            <tr>
+                              <th>90</th>
+                              <th>######</th>
+                              <th>######</th>
+                              <th class="advCell">######</th>
+                            </tr>
+                            <tr>
+                              <th>100</th>
+                              <th>######</th>
+                              <th>######</th>
+                              <th class="advCell">######</th>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="aks-single aks-chart-holder-outer">
+                        <div class="aks-chart-holder-inner">
+                          <canvas id="assetsComparisonChart-stress"></canvas>
+                        </div>
+                      </div>
+                    </div>
+                  </figure>
+                </div>
 
                 <div class="aks-switch-wrapper-outer aks-display-flex">
                   <label class="aks-switch-wrapper-label" for="stressTest">

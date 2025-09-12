@@ -14,7 +14,7 @@ main {
   margin: .75in 0;
 }
 /* elements to hide */
-.aks-actions-wrapper, #toggleDrawer, .aks-run-calc-wrapper, .aks-table-overflow-wrapper {
+.aks-actions-wrapper, #toggleDrawer, .aks-run-calc-wrapper, .aks-table-overflow-wrapper, .aks-switch-wrapper-outer {
   display: none !important;
 }
 /* HEADER */
@@ -142,4 +142,10 @@ input:focus, select:focus {
 }
 .results {
   margin-top: 15px;
+}
+#projectionSection .aks-standard-version, #projectionSection .aks-stress-test-version {
+  display: block !important;
+}
+.aks-chart-holder-outer {
+  margin-bottom: 20px !important;
 }

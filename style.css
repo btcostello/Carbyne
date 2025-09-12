@@ -926,7 +926,11 @@ body:not(.aks-drawer-open) .aks-chart-holder-outer {
   padding-bottom: 2px;
 }
 .advCell {
-  background-color:#2980b9 !important;
+  background-color:var(--color-navy-light);
+}
+.aks-table-hover tr:hover .advCell {
+  background-color: var(--color-navy);
+  color: #fff;
 }
 .highlight {
   color: var(--color-navy-dark);

@@ -1,4 +1,5 @@
 // MAKING IT EASIER FOR TESTING
+/*
 $('#password').val('c4rbyn3')
 $('#equities').val('1000000');
 $('#fixedIncome').val('500000');
@@ -8,6 +9,7 @@ $('#other').val('1000000');
 $('#baseIncome').val('240000');
 $('#bonusIncome').val('300000');
 $('#monthlyExpenses').val('20000');
+*/
 
 /*************************
   MAIN LOGIC
@@ -58,20 +60,12 @@ const COI = [[0.0393, 0.0403, 0.0451, 0.0422, 0.0412, 0.0376, 0.0376, 0.0339, 0.
 const stressTestRate = 0
 
 // Load and save case
-document.addEventListener('DOMContentLoaded', function() {
-  const loadCaseButton = document.getElementById('loadCaseButton');
-  const loadCaseFile = document.getElementById('loadCaseFile');
-  const saveCaseButton = document.getElementById('saveCaseButton');
-  if (saveCaseButton) {
-    saveCaseButton.addEventListener('click', saveCase);
-  }
-  if (loadCaseButton && loadCaseFile) {
-    // When the load button is clicked, trigger the file input
-    loadCaseButton.addEventListener('click', function() {
-      loadCaseFile.click();
-    });
-  };
-})
+$(function() {
+  $('#saveCaseButton').on('click', saveCase);
+  $('#loadCaseButton').on('click', function() {
+    $('#loadCaseFile').trigger('click');
+  });
+});
 
 // Format currency
 function formatCurrency(value) {
@@ -93,401 +87,69 @@ function formatPercentage(value) {
     maximumFractionDigits: 1
   }).format(numValue / 100);
 }
-
-// Calculate income values
+/*************************
+  Calculate income values
+*************************/
 function calculateIncomeValues() {
-  // Get input values
-  const baseIncome = parseFloat(document.getElementById('baseIncome').value.replace(/,/g, '')) || 0;
-  const bonusIncome = parseFloat(document.getElementById('bonusIncome').value.replace(/,/g, '')) || 0;
-  const monthlyExpenses = parseFloat(document.getElementById('monthlyExpenses').value.replace(/,/g, '')) || 0;
-  const taxRate = parseFloat(document.getElementById('taxRate').value) || 0;
-  const fixedIncomeAllocation = parseFloat(document.getElementById('fixedIncomeAllocation').value) || 20;			
-  // Calculate results
+  const baseIncome = parseFloat(($('#baseIncome').val() || '0').replace(/,/g, '')) || 0;
+  const bonusIncome = parseFloat(($('#bonusIncome').val() || '0').replace(/,/g, '')) || 0;
+  const monthlyExpenses = parseFloat(($('#monthlyExpenses').val() || '0').replace(/,/g, '')) || 0;
+  const taxRate = parseFloat($('#taxRate').val() || '0') || 0;
+  const fixedIncomeAllocation = parseFloat($('#fixedIncomeAllocation').val() || '20') || 20;
   const totalIncome = baseIncome + bonusIncome;
   const taxes = totalIncome * (taxRate / 100);
   const annualExpenses = monthlyExpenses * 12;
   const freeCashFlow = totalIncome - taxes - annualExpenses;
   const twentyPercent = freeCashFlow * fixedIncomeAllocation / 100;
-  // Update the DOM
-  document.getElementById('totalIncome').textContent = formatCurrency(totalIncome);
-  document.getElementById('taxes').textContent = formatCurrency(taxes);
-  document.getElementById('annualExpenses').textContent = formatCurrency(annualExpenses);
-  document.getElementById('freeCashFlow').textContent = formatCurrency(freeCashFlow);
-  document.getElementById('twentyPercent').textContent = formatCurrency(twentyPercent);
-  document.getElementById('annualCarbyneFromIncome').textContent = formatCurrency(twentyPercent);
-  return twentyPercent; // Return for total calculation
+  $('#totalIncome').text(formatCurrency(totalIncome));
+  $('#taxes').text(formatCurrency(taxes));
+  $('#annualExpenses').text(formatCurrency(annualExpenses));
+  $('#freeCashFlow').text(formatCurrency(freeCashFlow));
+  $('#twentyPercent').text(formatCurrency(twentyPercent));
+  $('#annualCarbyneFromIncome').text(formatCurrency(twentyPercent));
+  return twentyPercent;
 }
 
-// Calculate portfolio values
+/*************************
+  Calculate portfolio values
+*************************/
 function calculatePortfolioValues() {
-  // Get input values
-  const equities = parseFloat(document.getElementById('equities').value.replace(/,/g, '')) || 0;
-  const fixedIncome = parseFloat(document.getElementById('fixedIncome').value.replace(/,/g, '')) || 0;
-  const cash = parseFloat(document.getElementById('cash').value.replace(/,/g, '')) || 0;
-  const alternatives = parseFloat(document.getElementById('alternatives').value.replace(/,/g, '')) || 0;
-  const other = parseFloat(document.getElementById('other').value.replace(/,/g, '')) || 0;
-  const fundingYears = parseFloat(document.getElementById('fundingYears').value) || 5;
-  // Calculate results
+  const equities     = parseFloat(($('#equities').val() || '0').replace(/,/g, '')) || 0;
+  const fixedIncome  = parseFloat(($('#fixedIncome').val() || '0').replace(/,/g, '')) || 0;
+  const cash         = parseFloat(($('#cash').val() || '0').replace(/,/g, '')) || 0;
+  const alternatives = parseFloat(($('#alternatives').val() || '0').replace(/,/g, '')) || 0;
+  const other        = parseFloat(($('#other').val() || '0').replace(/,/g, '')) || 0;
+  const fundingYears = parseFloat($('#fundingYears').val() || '5') || 5;
   const totalAssets = equities + fixedIncome + cash + alternatives + other;
   const totalAllocationToCarbyne = fixedIncome + cash;
-  const annualCarbyneFromPortfolio = totalAllocationToCarbyne / fundingYears;
-  // Update the DOM
-  document.getElementById('totalAssets').textContent = formatCurrency(totalAssets);
-  document.getElementById('totalAllocationToCarbyne').textContent = formatCurrency(totalAllocationToCarbyne);
-  document.getElementById('annualCarbyneFromPortfolio').textContent = formatCurrency(annualCarbyneFromPortfolio);
-  document.getElementById('portfolioAllocation').textContent = formatCurrency(annualCarbyneFromPortfolio);
+  const annualCarbyneFromPortfolio = fundingYears ? (totalAllocationToCarbyne / fundingYears) : 0;
+  $('#totalAssets').text(formatCurrency(totalAssets));
+  $('#totalAllocationToCarbyne').text(formatCurrency(totalAllocationToCarbyne));
+  $('#annualCarbyneFromPortfolio').text(formatCurrency(annualCarbyneFromPortfolio));
+  $('#portfolioAllocation').text(formatCurrency(annualCarbyneFromPortfolio));
   return { 
-    annualCarbyneFromPortfolio: annualCarbyneFromPortfolio,
-    totalAllocationToCarbyne: totalAllocationToCarbyne
-  }; // Return for total calculation
+    annualCarbyneFromPortfolio,
+    totalAllocationToCarbyne
+  };
 }
-
-// Calculate total Carbyne allocation
+/*************************
+  Calculate total Carbyne allocation
+*************************/
 function calculateTotalCarbyne() {
   const incomeAllocation = calculateIncomeValues();
   const portfolioValues = calculatePortfolioValues();
   const totalAllocation = incomeAllocation + portfolioValues.annualCarbyneFromPortfolio;
-  document.getElementById('totalAnnualCarbyneAllocation').textContent = formatCurrency(totalAllocation);
+  $('#totalAnnualCarbyneAllocation').text(formatCurrency(totalAllocation));
   return {
     totalAnnualCarbyneAllocation: totalAllocation,
-    totalAllocationToCarbyne: portfolioValues.totalAllocationToCarbyne
+    totalAllocationToCarbyne: portfolioValues.totalAllocationToCarbyne,
+    incomeAllocation
   };
 }
 
-// Generate projection table
-function generateProjectionTable() {
-  // Get values from inputs from the first screen
-  const currentAge = parseInt(document.getElementById('currentAge').value) || 45;
-  const bondYield = parseFloat(document.getElementById('bondYield').value) || 4.5;
-  const advisoryFee = parseFloat(document.getElementById('advisoryFee').value) || 1.0;
-  const taxRate = parseFloat(document.getElementById('taxRate').value) || 45;
-  const fundingYears = parseFloat(document.getElementById('fundingYears').value) || 5;
-  const stressTest = document.getElementById('stressTest').checked || false;
-  const riskClass = document.getElementById('riskClass').value || 'preferred';
-  var perUnitFactor = 0
-  var initialDeathBenefitByAge= 0
-  var coiScalar = 1 
-  if (riskClass == 'preferred') {
-    var perUnitFactor = perUnitFactorPref 
-    var initialDeathBenefitByAge=initialDeathBenefitByAgePref
-    var coiScalar = 0.95 
-  } else if (riskClass == 'standard') {
-    var perUnitFactor = perUnitFactorStd
-    var initialDeathBenefitByAge=initialDeathBenefitByAgeStd
-    var coiScalar = 1.5 
-  } else {
-    var perUnitFactor = perUnitFactorStd
-    var initialDeathBenefitByAge=initialDeathBenefitByAgeSubst
-    var coiScalar = 3.25 
-  }   
-  // Get calculated values
-  const calculatedValues = calculateTotalCarbyne();
-  const carbyneAllocation = calculatedValues.totalAnnualCarbyneAllocation;
-  const fixedIncomeCash = calculatedValues.totalAllocationToCarbyne;
-  // Clear existing table
-  const tableBody = document.getElementById('projectionTableBody');
-  tableBody.innerHTML = '';
-  // Set initial values
-  const currentYear = new Date().getFullYear();
-  let currentAllocationStart = fixedIncomeCash;
-  let carbyneAllocationStart = fixedIncomeCash;
-  let insuranceCashValue = 0;
-  // Arrays for chart data
-  const agesArray = [];
-  const currentAssetsArray = [];
-  const carbyneAssetsArray = [];
-  const carbyneHeirsArray = [];
-  const carbyneWithInsuranceArray = [];
-  const faceAmount = initialDeathBenefitByAge[currentAge] * carbyneAllocation / 100000 //CHECK THE SCALAR HERE
-  // Generate rows from age+1 to 100
-  const summaryTableBody = document.getElementById('summaryTableBody');
-  summaryTableBody.innerHTML = '';
-  for (let age = currentAge + 1; age <= 100; age++) {
-    const year = currentYear + (age - currentAge);
-    const yearOfProjection = age - currentAge;
-    // Get new savings (allocation from income)
-    const incomeAllocation = yearOfProjection <= fundingYears ? calculateIncomeValues(): 0 ;
-    // Current Allocation calculations
-    const currentReturn = currentAllocationStart * (bondYield / 100);
-    const currentTaxesAndFees = - currentReturn * ((taxRate / 100) + (advisoryFee / 100));
-    const currentEnd = currentAllocationStart + incomeAllocation + currentReturn + currentTaxesAndFees;
-    // Carbyne Allocation calculations
-    const carbyneReturn = carbyneAllocationStart * (bondYield / 100);
-    const carbyneTaxesAndFees = - carbyneReturn * ((taxRate / 100) + (advisoryFee / 100));
-    // Only pay insurance premium for first 5 years
-    const carbyneInsurancePremium = yearOfProjection <= fundingYears ? carbyneAllocation : 0;
-    const carbyneInsurancePremiumRpt = carbyneInsurancePremium
-    const carbyneEnd = carbyneAllocationStart + incomeAllocation + carbyneReturn + carbyneTaxesAndFees - carbyneInsurancePremium;
-    // Insurance cash value calculation
-    const pctPrem = yearOfProjection <= 1 ? 0.098 : 0.0555
-    const pctPremCharge = carbyneInsurancePremium * pctPrem
-    const carbyneInsuranceNetPremium = carbyneInsurancePremium - pctPremCharge
-    var tempav = insuranceCashValue + carbyneInsuranceNetPremium
-    tempav = tempav - perPol
-    const unitcharge = yearOfProjection <= 5 ? perUnitFactor[currentAge]: 0
-    const perUnitCharge = unitcharge*faceAmount/1000
-    tempav = tempav-perUnitCharge
-    //deduct COI charge
-    coirate = COI[currentAge-20][yearOfProjection-1] * coiScalar
-    const persBonus = yearOfProjection <= 15 ? 0.00 : 0.00
-    tempav = tempav * (1+persBonus)				
-    var idxCredRate = 0.065
-    if (stressTest){
-      var idxCredRate = yearOfProjection % 7 === 0 ? stressTestRate : 0.065;
-    }
-    tempav = tempav * (1+idxCredRate)
-    insuranceCashValue = tempav  ;
-    // Death benefit calculation
-    let deathBenefit;
-    if (yearOfProjection <= fundingYears) {
-      // In first 5 years: use initial death benefit by age plus cash value
-      // Get the death benefit for the current age (or default to 500000 if not found)
-      const initialBenefit = faceAmount || 500000;
-      deathBenefit = initialBenefit + insuranceCashValue;
-      // Store death benefit at end of year 5 for future years
-      if (yearOfProjection === 5) {
-        window.year5DeathBenefit = deathBenefit;
-      }
-    } else {
-      // After year 5: fixed at year 5 death benefit value
-      deathBenefit = Math.max(window.year5DeathBenefit, insuranceCashValue *corrFactor[age]); // Fallback if not set
-    }
-    // Total Carbyne value
-    const totalCarbyneValue = carbyneEnd + insuranceCashValue;
-    const totalCarbyneNetToHeirs = carbyneEnd + deathBenefit;
-    // Store data for chart
-    agesArray.push(age);
-    currentAssetsArray.push(currentEnd);
-    carbyneAssetsArray.push(carbyneEnd);
-    carbyneHeirsArray.push(totalCarbyneNetToHeirs);
-    carbyneWithInsuranceArray.push(totalCarbyneValue);
-    // Performance differences
-    const liquidityDifference = carbyneEnd + insuranceCashValue - currentEnd;
-    const differenceToHeirs = deathBenefit + carbyneEnd - currentEnd;
-    // Create table row
-    const row = document.createElement('tr');
-    // Add data cells
-    row.innerHTML = `
-      <td>${age}</td>
-      <td>${year}</td>
-      <td data-val="${currentAllocationStart}">${formatCurrency(currentAllocationStart)}</td>
-      <td data-val="${incomeAllocation}">${formatCurrency(incomeAllocation)}</td>
-      <td data-val="${currentReturn}">${formatCurrency(currentReturn)}</td>
-      <td data-val="${currentTaxesAndFees}">${formatCurrency(currentTaxesAndFees)}</td>
-      <td data-val="${currentEnd}">${formatCurrency(currentEnd)}</td>
-      <td data-val="${carbyneAllocationStart}">${formatCurrency(carbyneAllocationStart)}</td>
-      <td data-val="${incomeAllocation}">${formatCurrency(incomeAllocation)}</td>
-      <td data-val="${carbyneReturn}">${formatCurrency(carbyneReturn)}</td>
-      <td data-val="${carbyneTaxesAndFees}">${formatCurrency(carbyneTaxesAndFees)}</td>
-      <td data-val="${carbyneInsurancePremiumRpt}">${formatCurrency(carbyneInsurancePremiumRpt)}</td>
-      <td data-val="${carbyneEnd}">${formatCurrency(carbyneEnd)}</td>
-      <td data-val="${insuranceCashValue}">${formatCurrency(insuranceCashValue)}</td>
-      <td data-val="${totalCarbyneValue}">${formatCurrency(totalCarbyneValue)}</td>
-      <td data-val="${deathBenefit}">${formatCurrency(deathBenefit)}</td>
-      <td data-val="${liquidityDifference}">${formatCurrency(liquidityDifference)}</td>
-      <td data-val="${differenceToHeirs}">${formatCurrency(differenceToHeirs)}</td>
-    `;  
-    tableBody.appendChild(row);
-    if (age===65 && currentAge < 65){
-      const summaryTableBody = document.getElementById('summaryTableBody');
-      const sumRow = document.createElement('tr');
-      const carbtotal = carbyneEnd + insuranceCashValue
-      sumRow.innerHTML = `
-        <td>Age 65</td>
-        <td>${formatCurrency(currentEnd)}</td>
-        <td>${formatCurrency(carbtotal)}</td>
-        <td>${formatCurrency(liquidityDifference)}</td>
-      `;
-      summaryTableBody.appendChild(sumRow)
-    }
-    if (age===70 && currentAge < 70){
-      const summaryTableBody = document.getElementById('summaryTableBody');
-      const sumRow = document.createElement('tr');
-      const carbtotal = carbyneEnd + insuranceCashValue
-      sumRow.innerHTML = `
-        <td>Age 70</td>
-        <td>${formatCurrency(currentEnd)}</td>
-        <td>${formatCurrency(carbtotal)}</td>
-        <td>${formatCurrency(liquidityDifference)}</td>
-      `;
-      summaryTableBody.appendChild(sumRow)
-    }
-    if (age===75){
-      const summaryTableBody = document.getElementById('summaryTableBody');
-      const sumRow = document.createElement('tr');
-      const carbtotal = carbyneEnd + insuranceCashValue
-      sumRow.innerHTML = `
-        <td>Age 75</td>
-        <td>${formatCurrency(currentEnd)}</td>
-        <td>${formatCurrency(carbtotal)}</td>
-        <td>${formatCurrency(liquidityDifference)}</td>
-      `;
-      summaryTableBody.appendChild(sumRow)
-    }
-    if (age===80){
-      const summaryTableBody = document.getElementById('summaryTableBody');
-      const sumRow = document.createElement('tr');
-      const carbtotal = carbyneEnd + insuranceCashValue
-      sumRow.innerHTML = `
-        <td>Age 80</td>
-        <td>${formatCurrency(currentEnd)}</td>
-        <td>${formatCurrency(carbtotal)}</td>
-        <td>${formatCurrency(liquidityDifference)}</td>
-      `;
-      summaryTableBody.appendChild(sumRow)
-    }
-    if (age===85){
-      const summaryTableBody = document.getElementById('summaryTableBody');
-      const sumRow = document.createElement('tr');
-      const carbtotal = carbyneEnd + insuranceCashValue
-      sumRow.innerHTML = `
-        <td>Age 85</td>
-        <td>${formatCurrency(currentEnd)}</td>
-        <td>${formatCurrency(carbtotal)}</td>
-        <td>${formatCurrency(liquidityDifference)}</td>
-      `;
-      summaryTableBody.appendChild(sumRow)
-    }
-    if (age===90){
-      const summaryTableBody = document.getElementById('summaryTableBody');
-      const sumRow = document.createElement('tr');
-      const carbtotal = carbyneEnd + insuranceCashValue
-      sumRow.innerHTML = `
-        <td>Age 90</td>
-        <td>${formatCurrency(currentEnd)}</td>
-        <td>${formatCurrency(carbtotal)}</td>
-        <td>${formatCurrency(liquidityDifference)}</td>
-      `;
-      summaryTableBody.appendChild(sumRow)
-    }
-    if (age===95){
-      const summaryTableBody = document.getElementById('summaryTableBody');
-      const sumRow = document.createElement('tr');
-      const carbtotal = carbyneEnd + insuranceCashValue
-      sumRow.innerHTML = `
-        <td>Age 95</td>
-        <td>${formatCurrency(currentEnd)}</td>
-        <td>${formatCurrency(carbtotal)}</td>
-        <td>${formatCurrency(liquidityDifference)}</td>
-      `;
-      summaryTableBody.appendChild(sumRow)
-    }				
-    if (age===100){
-      const summaryTableBody = document.getElementById('summaryTableBody');
-      const sumRow = document.createElement('tr');
-      const carbtotal = carbyneEnd + insuranceCashValue
-      sumRow.innerHTML = `
-        <td>Age 100</td>
-        <td>${formatCurrency(currentEnd)}</td>
-        <td>${formatCurrency(carbtotal)}</td>
-        <td>${formatCurrency(liquidityDifference)}</td>
-      `;
-      summaryTableBody.appendChild(sumRow)
-    }
-    // Update for next iteration
-    currentAllocationStart = currentEnd;
-    carbyneAllocationStart = carbyneEnd;
-  }
-  if ($('#projection').is(':visible')) {
-    createAssetsComparisonChart(agesArray, currentAssetsArray, carbyneHeirsArray, carbyneWithInsuranceArray);
-  }
-};
-
-// Create the chart
-function createAssetsComparisonChart(ages, currentAssets, carbyneHeirs, carbyneWithInsurance) {
-  // Get the canvas element
-  const ctx = document.getElementById('assetsComparisonChart').getContext('2d');
-  // Check if a chart instance already exists and destroy it
-  if (window.assetsChart) {
-    window.assetsChart.destroy();
-  }
-  // Create the chart
-  window.assetsChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: ages,
-      datasets: [
-        {
-          label: 'Current Allocation',
-          data: currentAssets,
-          borderColor: '#b62616',
-          backgroundColor: '#fceae8',
-
-          tension: 0.1,
-          borderWidth: 2
-        },
-        {
-          label: 'Carbyne Allocation®',
-          data: carbyneHeirs,
-          borderColor: '#5D89AA',
-          backgroundColor: '#eaf6ff',
-          tension: 0.1,
-          borderWidth: 2
-        },
-        {
-          label: 'Carbyne Allocation® Advantage',
-          data: carbyneWithInsurance,
-          borderColor: '#387a58',
-          backgroundColor: '#e7f4ed',
-          tension: 0.1,
-          borderWidth: 2,
-          borderDash: [5, 5]
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        title: {
-          display: true,
-          text: 'Asset Growth Over Time',
-          font: {
-            size: 16
-          }
-        },
-        tooltip: {
-          callbacks: {
-            label: function(context) {
-              return context.dataset.label + ': ' + formatCurrency(context.raw);
-            }
-          }
-        },
-        legend: {
-          position: 'bottom'
-        }
-      },
-      scales: {
-        x: {
-          title: {
-            display: true,
-            text: 'Age'
-          }
-        },
-        y: {
-          title: {
-            display: true,
-            text: 'Value ($)'
-          },
-          ticks: {
-            callback: function(value) {
-              if (value >= 1000000) {
-                return '$' + (value / 1000000).toFixed(1) + 'M';
-              } else if (value >= 1000) {
-                return '$' + (value / 1000).toFixed(0) + 'K';
-              }
-              return '$' + value;
-            }
-          }
-        }
-      }
-    }
-  });
-}
-
-// === Event listeners (deduped) ===
-
-// text/number inputs → update live on keystroke
+/*************************
+  Event listeners for input changes
+*************************/
 [
   // income
   'baseIncome','bonusIncome','monthlyExpenses','taxRate',
@@ -501,8 +163,6 @@ function createAssetsComparisonChart(ages, currentAssets, carbyneHeirs, carbyneW
     el.addEventListener('input', () => { if (autoUpdate) generateProjectionTable(); });
   }
 });
-
-// selects/checkboxes → change is more reliable
 ['stressTest','riskClass'].forEach(id => {
   const el = document.getElementById(id);
   if (el) {
@@ -510,82 +170,68 @@ function createAssetsComparisonChart(ages, currentAssets, carbyneHeirs, carbyneW
   }
 });
 
-// Save case
+/*************************
+  SAVE CASE
+*************************/
 function saveCase() {
-  // Collect all input values
   const caseData = {
     clientInfo: {
-      currentAge: parseFloat(document.getElementById('currentAge').value) || 0,
-      bondYield: parseFloat(document.getElementById('bondYield').value) || 0,
-      advisoryFee: parseFloat(document.getElementById('advisoryFee').value) || 0,
-      fixedIncomeAllocation: parseFloat(document.getElementById('fixedIncomeAllocation').value) || 0
+      currentAge: parseFloat($('#currentAge').val() || '0') || 0,
+      bondYield: parseFloat($('#bondYield').val() || '0') || 0,
+      advisoryFee: parseFloat($('#advisoryFee').val() || '0') || 0,
+      fixedIncomeAllocation: parseFloat($('#fixedIncomeAllocation').val() || '0') || 0
     },
     income: {
-      baseIncome: parseFloat(document.getElementById('baseIncome').value) || 0,
-      bonusIncome: parseFloat(document.getElementById('bonusIncome').value) || 0,
-      monthlyExpenses: parseFloat(document.getElementById('monthlyExpenses').value) || 0,
-      taxRate: parseFloat(document.getElementById('taxRate').value) || 0
+      baseIncome: parseFloat(($('#baseIncome').val() || '0').replace(/,/g,'')) || 0,
+      bonusIncome: parseFloat(($('#bonusIncome').val() || '0').replace(/,/g,'')) || 0,
+      monthlyExpenses: parseFloat(($('#monthlyExpenses').val() || '0').replace(/,/g,'')) || 0,
+      taxRate: parseFloat($('#taxRate').val() || '0') || 0
     },
     portfolio: {
-      equities: parseFloat(document.getElementById('equities').value) || 0,
-      fixedIncome: parseFloat(document.getElementById('fixedIncome').value) || 0,
-      cash: parseFloat(document.getElementById('cash').value) || 0,
-      alternatives: parseFloat(document.getElementById('alternatives').value) || 0,
-      other: parseFloat(document.getElementById('other').value) || 0
+      equities: parseFloat(($('#equities').val() || '0').replace(/,/g,'')) || 0,
+      fixedIncome: parseFloat(($('#fixedIncome').val() || '0').replace(/,/g,'')) || 0,
+      cash: parseFloat(($('#cash').val() || '0').replace(/,/g,'')) || 0,
+      alternatives: parseFloat(($('#alternatives').val() || '0').replace(/,/g,'')) || 0,
+      other: parseFloat(($('#other').val() || '0').replace(/,/g,'')) || 0
     },
-    // Include additional calculated values for reference
     calculatedValues: {
-      totalIncome: parseFloat(document.getElementById('totalIncome').textContent.replace(/[^0-9.-]+/g, '')) || 0,
-      annualExpenses: parseFloat(document.getElementById('annualExpenses').textContent.replace(/[^0-9.-]+/g, '')) || 0,
-      freeCashFlow: parseFloat(document.getElementById('freeCashFlow').textContent.replace(/[^0-9.-]+/g, '')) || 0,
-      totalAssets: parseFloat(document.getElementById('totalAssets').textContent.replace(/[^0-9.-]+/g, '')) || 0,
-      totalAllocationToCarbyne: parseFloat(document.getElementById('totalAllocationToCarbyne').textContent.replace(/[^0-9.-]+/g, '')) || 0,
-      totalAnnualCarbyneAllocation: parseFloat(document.getElementById('totalAnnualCarbyneAllocation').textContent.replace(/[^0-9.-]+/g, '')) || 0
+      totalIncome: parseFloat(($('#totalIncome').text() || '').replace(/[^0-9.-]+/g, '')) || 0,
+      annualExpenses: parseFloat(($('#annualExpenses').text() || '').replace(/[^0-9.-]+/g, '')) || 0,
+      freeCashFlow: parseFloat(($('#freeCashFlow').text() || '').replace(/[^0-9.-]+/g, '')) || 0,
+      totalAssets: parseFloat(($('#totalAssets').text() || '').replace(/[^0-9.-]+/g, '')) || 0,
+      totalAllocationToCarbyne: parseFloat(($('#totalAllocationToCarbyne').text() || '').replace(/[^0-9.-]+/g, '')) || 0,
+      totalAnnualCarbyneAllocation: parseFloat(($('#totalAnnualCarbyneAllocation').text() || '').replace(/[^0-9.-]+/g, '')) || 0
     },
-    // Add metadata
-    metadata: {
-      dateCreated: new Date().toISOString(),
-      appVersion: "1.0.0" // You can update this based on your versioning
-    }
+    metadata: { dateCreated: new Date().toISOString(), appVersion: "1.0.0" }
   };
-  // Convert the data to a JSON string with pretty formatting
+
   const jsonData = JSON.stringify(caseData, null, 2);
-  // Create a blob with the JSON data
   const blob = new Blob([jsonData], { type: 'application/json' });
-  // Create a temporary URL for the blob
   const url = URL.createObjectURL(blob);
-  // Create a temporary link element
   const link = document.createElement('a');
-  // Generate a filename with current date
   const date = new Date();
-  const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-  // Set the download filename
+  const formattedDate = `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
   link.download = `carbyne-model-${formattedDate}.json`;
-  // Set the link href to the blob URL
   link.href = url;
-  // Append the link to the body
   document.body.appendChild(link);
-  // Trigger the download
   link.click();
-  // Clean up
   document.body.removeChild(link);
   URL.revokeObjectURL(url);
 }
 
+/*************************
+  LOAD CASE
+*************************/
 // Load case file
-loadCaseFile.addEventListener('change', function(event) {
+$('#loadCaseFile').on('change', function(event) {
   const file = event.target.files[0];
   if (!file) return;
-  // Read the file as text
   const reader = new FileReader();
   reader.onload = function(e) {
     try {
-      // Parse the JSON content
       const caseData = JSON.parse(e.target.result);
-      // Load the data into the form
       loadCaseData(caseData);
     } catch (error) {
-      // Show error message if parsing fails
       console.error('Error parsing JSON file:', error);
       alert('Error loading case data. The file might be invalid or corrupted.');
     }
@@ -593,12 +239,10 @@ loadCaseFile.addEventListener('change', function(event) {
   reader.onerror = function() {
     alert('Error reading the file. Please try again.');
   };
-  // Start reading the file
   reader.readAsText(file);
-  // Reset the file input so the same file can be selected again
-  loadCaseFile.value = '';
+  $(this).val(''); // reset
 });
-  
+
 // Load data into the form fields
 function loadCaseData(caseData) {
   autoUpdate=false
@@ -624,15 +268,12 @@ function loadCaseData(caseData) {
     setInputValue('alternatives', caseData.portfolio.alternatives);
     setInputValue('other', caseData.portfolio.other);
   }
-  // Trigger recalculation to update all derived values
-  // Optional: Visual feedback - highlight fields that were updated
   highlightUpdatedFields();
   autoUpdate=true
   generateProjectionTable()
 }
 
 // Helper function to set input value and trigger change event
-// Helper: set value + fire both input/change so all listeners run
 function setInputValue(id, value) {
   const el = document.getElementById(id);
   if (!el) return;
@@ -645,10 +286,8 @@ function setInputValue(id, value) {
 function highlightUpdatedFields() {
   // Get all input fields
   const inputFields = document.querySelectorAll('input[type="number"]');
-  // Add a temporary highlight class
   inputFields.forEach(function(input) {
     input.classList.add('highlight-updated');
-    // Remove the highlight after a short delay
     setTimeout(function() {
       input.classList.remove('highlight-updated');
     }, 2000);
@@ -682,12 +321,369 @@ document.querySelectorAll('.formatted-number').forEach(input => {
 });
 
 /*************************
-  PRINT
+  ANALYSIS TABLES AND CHARTS
 *************************/
-$("#printReport").click(function() {
-    window.print();
+// Single source of truth for the yearly projection
+function runProjection(isStress) {
+  const currentAge   = parseInt($('#currentAge').val(), 10) || 45;
+  const bondYield    = parseFloat($('#bondYield').val()) || 4.5;
+  const advisoryFee  = parseFloat($('#advisoryFee').val()) || 1.0;
+  const taxRate      = parseFloat($('#taxRate').val()) || 45;
+  const fundingYears = parseFloat($('#fundingYears').val()) || 5;
+  const riskClass    = $('#riskClass').val() || 'preferred';
+  const { totalAnnualCarbyneAllocation: carbyneAllocation,
+        totalAllocationToCarbyne: fixedIncomeCash,
+        incomeAllocation: yearlyIncomeAllocation } = calculateTotalCarbyne();
+  let perUnitFactor = 0, initialDeathBenefitByAge = 0, coiScalar = 1;
+  if (riskClass === 'preferred') {
+    perUnitFactor = perUnitFactorPref; initialDeathBenefitByAge = initialDeathBenefitByAgePref; coiScalar = 0.95;
+  } else if (riskClass === 'standard') {
+    perUnitFactor = perUnitFactorStd;  initialDeathBenefitByAge = initialDeathBenefitByAgeStd;  coiScalar = 1.5;
+  } else {
+    perUnitFactor = perUnitFactorStd;  initialDeathBenefitByAge = initialDeathBenefitByAgeSubst; coiScalar = 3.25;
+  }
+  const currentYear = new Date().getFullYear();
+  let currentAllocationStart = fixedIncomeCash;
+  let carbyneAllocationStart = fixedIncomeCash;
+  let insuranceCashValue = 0;
+  const faceAmount = (initialDeathBenefitByAge[currentAge] * carbyneAllocation) / 100000;
+  const ages = [];
+  const currentEndArr = [];
+  const carbyneHeirsArr = [];
+  const totalCarbyneValueArr = [];
+  const summaryRows = [];
+  const rows = [];
+  let year5DeathBenefit;
+  const wantedAges = new Set([65,70,75,80,85,90,95,100]);
+  for (let age = currentAge + 1; age <= 100; age++) {
+    const y = age - currentAge;
+    const year = currentYear + y;
+    const incomeAllocation = y <= fundingYears ? yearlyIncomeAllocation : 0;
+    // Current allocation track
+    const currentReturn = currentAllocationStart * (bondYield / 100);
+    const currentTaxesAndFees = - currentReturn * ((taxRate / 100) + (advisoryFee / 100));
+    const currentEnd = currentAllocationStart + incomeAllocation + currentReturn + currentTaxesAndFees;
+    // Carbyne track
+    const carbyneReturn = carbyneAllocationStart * (bondYield / 100);
+    const carbyneTaxesAndFees = - carbyneReturn * ((taxRate / 100) + (advisoryFee / 100));
+    const carbyneInsurancePremium = y <= fundingYears ? carbyneAllocation : 0;
+    const carbyneEnd = carbyneAllocationStart + incomeAllocation + carbyneReturn + carbyneTaxesAndFees - carbyneInsurancePremium;
+    // Insurance AV
+    const pctPrem = y <= 1 ? 0.098 : 0.0555;
+    const pctPremCharge = carbyneInsurancePremium * pctPrem;
+    const netPrem = carbyneInsurancePremium - pctPremCharge;
+    let tempav = insuranceCashValue + netPrem;
+    tempav -= perPol;
+    const unitCharge = y <= 5 ? perUnitFactor[currentAge] : 0;
+    tempav -= (unitCharge * faceAmount) / 1000;
+    const persBonus = y <= 15 ? 0.00 : 0.00;
+    tempav *= (1 + persBonus);
+    let idxCredRate = 0.065;
+    if (isStress) idxCredRate = (y % 7 === 0) ? stressTestRate : 0.065;
+    tempav *= (1 + idxCredRate);
+    insuranceCashValue = tempav;
+    // Death benefit
+    let deathBenefit;
+    if (y <= fundingYears) {
+      const initialBenefit = faceAmount || 500000;
+      deathBenefit = initialBenefit + insuranceCashValue;
+      if (y === 5) year5DeathBenefit = deathBenefit;
+    } else {
+      const y5 = (year5DeathBenefit == null) ? 0 : year5DeathBenefit;
+      deathBenefit = Math.max(y5, insuranceCashValue * corrFactor[age]);
+    }
+    const totalCarbyneValue = carbyneEnd + insuranceCashValue;
+    const totalCarbyneNetToHeirs = carbyneEnd + deathBenefit;
+    const liquidityDifference = totalCarbyneValue - currentEnd;
+    const differenceToHeirs = totalCarbyneNetToHeirs - currentEnd;
+    ages.push(age);
+    currentEndArr.push(currentEnd);
+    carbyneHeirsArr.push(totalCarbyneNetToHeirs);
+    totalCarbyneValueArr.push(totalCarbyneValue);
+    if (wantedAges.has(age)) {
+      summaryRows.push({
+        label: `Age ${age}`,
+        currentEnd,
+        carbyneTotal: totalCarbyneValue,
+        advantage: liquidityDifference
+      });
+    }
+    rows.push({
+      age, year,
+      currentAllocationStart,
+      incomeAllocation,
+      currentReturn,
+      currentTaxesAndFees,
+      currentEnd,
+      carbyneAllocationStart,
+      carbyneReturn,
+      carbyneTaxesAndFees,
+      carbyneInsurancePremium,
+      carbyneEnd,
+      insuranceCashValue,
+      totalCarbyneValue,
+      deathBenefit,
+      liquidityDifference,
+      differenceToHeirs
+    });
+    currentAllocationStart = currentEnd;
+    carbyneAllocationStart = carbyneEnd;
+  }
+  return {
+    series: { ages, currentEnd: currentEndArr, carbyneHeirs: carbyneHeirsArr, totalCarbyneValue: totalCarbyneValueArr },
+    summaryRows,
+    rows
+  };
+}
+
+// PROJECTION TABLE
+function generateProjectionTable() {
+  const isStress = document.getElementById('stressTest').checked || false;
+  const sim = runProjection(isStress);
+  const tbody = document.getElementById('projectionTableBody');
+  tbody.innerHTML = '';
+  sim.rows.forEach(r => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${r.age}</td>
+      <td>${r.year}</td>
+      <td data-val="${r.currentAllocationStart}">${formatCurrency(r.currentAllocationStart)}</td>
+      <td data-val="${r.incomeAllocation}">${formatCurrency(r.incomeAllocation)}</td>
+      <td data-val="${r.currentReturn}">${formatCurrency(r.currentReturn)}</td>
+      <td data-val="${r.currentTaxesAndFees}">${formatCurrency(r.currentTaxesAndFees)}</td>
+      <td data-val="${r.currentEnd}">${formatCurrency(r.currentEnd)}</td>
+      <td data-val="${r.carbyneAllocationStart}">${formatCurrency(r.carbyneAllocationStart)}</td>
+      <td data-val="${r.incomeAllocation}">${formatCurrency(r.incomeAllocation)}</td>
+      <td data-val="${r.carbyneReturn}">${formatCurrency(r.carbyneReturn)}</td>
+      <td data-val="${r.carbyneTaxesAndFees}">${formatCurrency(r.carbyneTaxesAndFees)}</td>
+      <td data-val="${r.carbyneInsurancePremium}">${formatCurrency(r.carbyneInsurancePremium)}</td>
+      <td data-val="${r.carbyneEnd}">${formatCurrency(r.carbyneEnd)}</td>
+      <td data-val="${r.insuranceCashValue}">${formatCurrency(r.insuranceCashValue)}</td>
+      <td data-val="${r.totalCarbyneValue}">${formatCurrency(r.totalCarbyneValue)}</td>
+      <td data-val="${r.deathBenefit}">${formatCurrency(r.deathBenefit)}</td>
+      <td data-val="${r.liquidityDifference}">${formatCurrency(r.liquidityDifference)}</td>
+      <td data-val="${r.differenceToHeirs}">${formatCurrency(r.differenceToHeirs)}</td>
+    `;
+    tbody.appendChild(row);
+  });
+}
+
+// SUMMARY DATA
+let _stdChart = null;
+let _stressChart = null;
+function computeScenarioForSummary(isStress) {
+  const sim = runProjection(isStress);
+  return {
+    ages: sim.series.ages,
+    currentAssets: sim.series.currentEnd,
+    carbyneHeirs: sim.series.carbyneHeirs,
+    carbyneWithInsurance: sim.series.totalCarbyneValue,
+    summaryRows: sim.summaryRows
+  };
+}
+
+// SUMMARY TABLE
+function renderSummaryTableBody(tbodySelector, rows) {
+  const html = rows.map(r => `
+    <tr>
+      <td>${r.label}</td>
+      <td>${formatCurrency(r.currentEnd)}</td>
+      <td>${formatCurrency(r.carbyneTotal)}</td>
+      <td class="advCell">${formatCurrency(r.advantage)}</td>
+    </tr>
+  `).join('');
+  $(tbodySelector).html(html);
+}
+
+// SUMMARY CHART
+function buildLineChart(canvasId, ages, currentAssets, carbyneHeirs, carbyneWithInsurance) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return null;
+  const ctx = canvas.getContext('2d');
+  if (canvas._chartInstance) {
+    try { canvas._chartInstance.destroy(); } catch (e) {}
+  }
+  const hiddenAtInit = (canvas.offsetParent === null);
+  let chartTitle = 'Asset Growth Over Time';
+  if (canvasId === 'assetsComparisonChart-stress') {
+    chartTitle = 'Asset Growth Over Time (Stress Tested)';
+  }
+  const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ages,
+      datasets: [
+        {
+          label: 'Current Allocation',
+          data: currentAssets,
+          borderColor: '#b62616',
+          backgroundColor: '#fceae8',
+          tension: 0.1,
+          borderWidth: 2
+        },
+        {
+          label: 'Carbyne Allocation®',
+          data: carbyneHeirs,
+          borderColor: '#5D89AA',
+          backgroundColor: '#eaf6ff',
+          tension: 0.1,
+          borderWidth: 2
+        },
+        {
+          label: 'Carbyne Allocation® Advantage',
+          data: carbyneWithInsurance,
+          borderColor: '#387a58',
+          backgroundColor: '#e7f4ed',
+          tension: 0.1,
+          borderWidth: 2,
+          borderDash: [5, 5]
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: hiddenAtInit ? { duration: 0 } : { duration: 400 },
+      plugins: {
+        title: {
+          display: true,
+          text: chartTitle,
+          font: { size: 16 }
+        },
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              return context.dataset.label + ': ' + formatCurrency(context.raw);
+            }
+          }
+        },
+        legend: { position: 'bottom' }
+      },
+      scales: {
+        x: { title: { display: true, text: 'Age' } },
+        y: {
+          title: { display: true, text: 'Value ($)' },
+          ticks: {
+            callback: function(value) {
+              if (value >= 1000000) return '$' + (value / 1000000).toFixed(1) + 'M';
+              else if (value >= 1000) return '$' + (value / 1000).toFixed(0) + 'K';
+              return '$' + value;
+            }
+          }
+        }
+      }
+    }
+  });
+  canvas._chartInstance = chart;
+  return chart;
+}
+
+// RENDER SUMMARY TABLES AND CHARTS
+function renderBothSummaryTablesAndCharts() {
+  // STANDARD (non-stress)
+  const std = computeScenarioForSummary(false);
+  renderSummaryTableBody('#summaryTableBody-standard', std.summaryRows);
+  if (_stdChart) { _stdChart.destroy(); }
+  _stdChart = buildLineChart(
+    'assetsComparisonChart-standard',
+    std.ages, std.currentAssets, std.carbyneHeirs, std.carbyneWithInsurance
+  );
+  // STRESS
+  const st = computeScenarioForSummary(true);
+  renderSummaryTableBody('#summaryTableBody-stress', st.summaryRows);
+  if (_stressChart) { _stressChart.destroy(); }
+  _stressChart = buildLineChart(
+    'assetsComparisonChart-stress',
+    st.ages, st.currentAssets, st.carbyneHeirs, st.carbyneWithInsurance
+  );
+}
+
+// Initial render after DOM ready
+$(function() {
+  renderBothSummaryTablesAndCharts();
 });
 
+// Re-render both snapshots when relevant inputs change
+$('#currentAge, #bondYield, #advisoryFee, #taxRate, #fundingYears, #riskClass')
+  .on('change input', function() {
+    renderBothSummaryTablesAndCharts();
+  });
+
+// On page load: make sure correct one shows
+function updateSummaryVisibility() {
+  if ($('#stressTest').is(':checked')) {
+    $('.aks-standard-version').hide();
+    $('.aks-stress-test-version').show();
+  } else {
+    $('.aks-standard-version').show();
+    $('.aks-stress-test-version').hide();
+  }
+    if ($('#stressTest').is(':checked')) {
+    if (window.assetsChartStress || (typeof _stressChart !== 'undefined' && _stressChart)) {
+      (window.assetsChartStress || _stressChart).resize();
+    }
+  } else {
+    if (window.assetsChartStandard || (typeof _stdChart !== 'undefined' && _stdChart)) {
+      (window.assetsChartStandard || _stdChart).resize();
+    }
+  }
+}
+
+// UPDATE DEETAILED TABLE CAPTION
+function updateProjectionCaption() {
+  const $cap = $('#projectionTable > caption');
+  if (!$cap.length) return;
+  if (!$cap.data('baseText')) {
+    const base = $cap.text().replace(/\s*\(Stress Tested\)\s*$/i, '');
+    $cap.data('baseText', base);
+  }
+  const base = $cap.data('baseText');
+  const isStress = $('#stressTest').is(':checked');
+  $cap.text(isStress ? `${base} (Stress Tested)` : base);
+}
+
+$(function() {
+  updateSummaryVisibility();
+  updateProjectionCaption();
+  $('#stressTest').on('change', function() {
+    updateSummaryVisibility();
+    if (typeof autoUpdate !== 'undefined' && autoUpdate) {
+      generateProjectionTable();
+    }
+    updateProjectionCaption();
+  });
+});
+
+/*************************
+  PRINT
+*************************/
+// Show both summaries and make charts recompute size (for print)
+function showBothSummaryWrappersForPrint() {
+  $('.aks-standard-version, .aks-stress-test-version').show();
+  if (_stdChart)    { _stdChart.resize();    if (_stdChart.update)    _stdChart.update('none'); }
+  if (_stressChart) { _stressChart.resize(); if (_stressChart.update) _stressChart.update('none'); }
+}
+
+// Restore visibility based on the toggle after printing
+function restoreSummaryWrappersAfterPrint() {
+  updateSummaryVisibility();
+  // ensure the visible chart lays out correctly again
+  if ($('#stressTest').is(':checked')) {
+    if (_stressChart) _stressChart.resize();
+  } else {
+    if (_stdChart) _stdChart.resize();
+  }
+}
+
+// Help charts render correctly in print
+window.addEventListener('beforeprint', showBothSummaryWrappersForPrint);
+window.addEventListener('afterprint',  restoreSummaryWrappersAfterPrint);
+
+// Click on print
+$("#printReport").on('click', function() {
+  showBothSummaryWrappersForPrint();
+  setTimeout(() => window.print(), 0);
+});
 /*************************
   DRAWER
 *************************/
