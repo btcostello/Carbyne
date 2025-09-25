@@ -404,6 +404,12 @@ button.aks-link {
 .aks-header .aks-text-holder p {
   font-size: 1.2rem;
 }
+@media (max-width: 767px) {
+  .aks-header > .aks-display-grid {
+    grid-template-columns: 1fr;
+    gap: var(--gap);
+  }
+}
 /*************************
   DRAWER
 *************************/
