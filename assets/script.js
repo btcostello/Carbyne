@@ -1,6 +1,7 @@
 // MAKING IT EASIER FOR TESTING
+
 /*
-$('#password').val('c4rbyn3')
+$('#password').val('c4rbyn3');
 $('#equities').val('1000000');
 $('#fixedIncome').val('500000');
 $('#cash').val('0');
@@ -148,27 +149,48 @@ function calculateTotalCarbyne() {
 }
 
 /*************************
-  Event listeners for input changes
+  UNIFIED UPDATE HANDLER
 *************************/
-[
+function updateAllNow() {
+  if (!autoUpdate) return;
+  generateProjectionTable();
+  renderBothSummaryTablesAndCharts();
+  updateProjectionCaption();
+  updateSummaryVisibility();
+}
+
+// debounce so charts don’t thrash while typing
+let _updTimer = null;
+function updateAllDebounced() {
+  if (!autoUpdate) return;
+  clearTimeout(_updTimer);
+  _updTimer = setTimeout(updateAllNow, 120);
+}
+
+/*************************
+  EVENT LISTENERS
+*************************/
+const ALL_IDS = [
   // income
   'baseIncome','bonusIncome','monthlyExpenses','taxRate',
   // portfolio
   'equities','fixedIncome','cash','alternatives','other',
   // client numeric/text
-  'fundingYears','currentAge','bondYield','advisoryFee','fixedIncomeAllocation'
-].forEach(id => {
+  'fundingYears','currentAge','bondYield','advisoryFee','fixedIncomeAllocation',
+  // selects
+  'riskClass'
+];
+
+ALL_IDS.forEach(id => {
   const el = document.getElementById(id);
-  if (el) {
-    el.addEventListener('input', () => { if (autoUpdate) generateProjectionTable(); });
-  }
+  if (!el) return;
+  el.addEventListener('input',  updateAllDebounced);
+  el.addEventListener('change', updateAllDebounced);
 });
-['stressTest','riskClass'].forEach(id => {
-  const el = document.getElementById(id);
-  if (el) {
-    el.addEventListener('change', () => { if (autoUpdate) generateProjectionTable(); });
-  }
-});
+
+// stress test toggle = full immediate refresh
+const stressEl = document.getElementById('stressTest');
+if (stressEl) stressEl.addEventListener('change', updateAllNow);
 
 /*************************
   SAVE CASE
@@ -294,31 +316,52 @@ function highlightUpdatedFields() {
   });
 }
 
-// Format numbers
-document.querySelectorAll('.formatted-number').forEach(input => {
-  // Format initial value on load
-  if (input.value) {
-    input.value = Number(input.value.replace(/\D/g, "")).toLocaleString();
-  }
-  input.addEventListener("input", (e) => {
-    const rawValue = e.target.value.replace(/\D/g, "");
-    if (rawValue) {
-      e.target.value = Number(rawValue).toLocaleString();
-    } else {
-      e.target.value = "";
-    }
+/*************************
+  Format numbers
+*************************/
+(function() {
+  const nf = new Intl.NumberFormat('en-US');
+  const digits = v => (v || '').toString().replace(/\D/g, '');
+  const fmt = v => {
+    const d = digits(v);
+    return d ? nf.format(Number(d)) : '';
+  };
+
+  // Call unified updaters if they exist
+  const triggerDebounced = () => { if (typeof updateAllDebounced === 'function') updateAllDebounced(); };
+  const triggerImmediate = () => { if (typeof updateAllNow === 'function') updateAllNow(); };
+
+  document.querySelectorAll('.formatted-number').forEach(input => {
+    // Format initial value on load
+    if (input.value) input.value = fmt(input.value);
+
+    input.addEventListener('input', e => {
+      const caret = e.target.selectionStart;
+      const before = e.target.value;
+      e.target.value = fmt(before);
+      // best-effort caret restore
+      try { e.target.setSelectionRange(caret, caret); } catch {}
+      triggerDebounced();
+    });
+
+    input.addEventListener('focus', e => {
+      e.target.value = digits(e.target.value);
+    });
+
+    input.addEventListener('blur', e => {
+      e.target.value = fmt(e.target.value);
+      triggerImmediate();
+    });
+
+    // Extra safety: normalize after paste, then refresh
+    input.addEventListener('paste', () => {
+      requestAnimationFrame(() => {
+        input.value = fmt(input.value);
+        triggerImmediate();
+      });
+    });
   });
-  input.addEventListener("focus", (e) => {
-    const rawValue = e.target.value.replace(/\D/g, "");
-    e.target.value = rawValue;
-  });
-  input.addEventListener("blur", (e) => {
-    const rawValue = e.target.value.replace(/\D/g, "");
-    if (rawValue) {
-      e.target.value = Number(rawValue).toLocaleString();
-    }
-  });
-});
+})();
 
 /*************************
   ANALYSIS TABLES AND CHARTS
@@ -598,11 +641,6 @@ function renderBothSummaryTablesAndCharts() {
   );
 }
 
-// Initial render after DOM ready
-$(function() {
-  renderBothSummaryTablesAndCharts();
-});
-
 // Re-render both snapshots when relevant inputs change
 $('#currentAge, #bondYield, #advisoryFee, #taxRate, #fundingYears, #riskClass')
   .on('change input', function() {
@@ -643,15 +681,11 @@ function updateProjectionCaption() {
 }
 
 $(function() {
+  // first paint of everything
+  renderBothSummaryTablesAndCharts();
+  generateProjectionTable();
   updateSummaryVisibility();
   updateProjectionCaption();
-  $('#stressTest').on('change', function() {
-    updateSummaryVisibility();
-    if (typeof autoUpdate !== 'undefined' && autoUpdate) {
-      generateProjectionTable();
-    }
-    updateProjectionCaption();
-  });
 });
 
 /*************************
