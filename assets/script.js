@@ -317,48 +317,104 @@ function highlightUpdatedFields() {
 }
 
 /*************************
-  Format numbers
+  Format numbers with stable caret
 *************************/
 (function() {
   const nf = new Intl.NumberFormat('en-US');
-  const digits = v => (v || '').toString().replace(/\D/g, '');
-  const fmt = v => {
-    const d = digits(v);
-    return d ? nf.format(Number(d)) : '';
-  };
+  const isDigit = ch => /[0-9]/.test(ch);
+  const onlyDigits = s => (s || '').replace(/\D/g, '');
+  const formatDigits = d => d ? nf.format(Number(d)) : '';
 
-  // Call unified updaters if they exist
+  // map caret to the count of digits to its left
+  function digitIndexAtCaret(formatted, caretPos) {
+    let count = 0;
+    for (let i = 0; i < Math.min(caretPos, formatted.length); i++) {
+      if (isDigit(formatted[i])) count++;
+    }
+    return count;
+  }
+
+  // map digit index back to a caret position in a formatted string
+  function caretPosForDigitIndex(formatted, digitIdx) {
+    if (digitIdx <= 0) return 0;
+    let count = 0;
+    for (let i = 0; i < formatted.length; i++) {
+      if (isDigit(formatted[i])) {
+        count++;
+        if (count === digitIdx) {
+          return i + 1;
+        }
+      }
+    }
+    return formatted.length;
+  }
+
+  // Unified update hooks (if present)
   const triggerDebounced = () => { if (typeof updateAllDebounced === 'function') updateAllDebounced(); };
   const triggerImmediate = () => { if (typeof updateAllNow === 'function') updateAllNow(); };
 
+  // Core reformatter that preserves caret
+  function reformatPreservingCaret(input, immediate = false) {
+    // If a selection range (not collapsed), let the browser handle it and just format after
+    const hasSelection = input.selectionStart !== input.selectionEnd;
+
+    const before = input.value;
+    const caret = input.selectionStart ?? before.length;
+
+    // how many digits were to the left of the caret before formatting?
+    const prevDigitIdx = digitIndexAtCaret(before, caret);
+
+    // sanitize to digits and reformat
+    const digits = onlyDigits(before);
+    const after = formatDigits(digits);
+
+    // write back
+    input.value = after;
+
+    // restore caret near the same digit
+    const targetDigitIdx = hasSelection
+      ? digitIndexAtCaret(before, input.selectionEnd ?? caret)
+      : prevDigitIdx;
+
+    const newCaret = caretPosForDigitIndex(after, targetDigitIdx);
+    try { input.setSelectionRange(newCaret, newCaret); } catch {}
+
+    // notify the rest of the app
+    if (immediate) triggerImmediate(); else triggerDebounced();
+  }
+
   document.querySelectorAll('.formatted-number').forEach(input => {
-    // Format initial value on load
-    if (input.value) input.value = fmt(input.value);
+    // Initial display formatting (don’t touch caret here)
+    if (input.value) input.value = formatDigits(onlyDigits(input.value));
 
-    input.addEventListener('input', e => {
-      const caret = e.target.selectionStart;
-      const before = e.target.value;
-      e.target.value = fmt(before);
-      // best-effort caret restore
-      try { e.target.setSelectionRange(caret, caret); } catch {}
-      triggerDebounced();
+    // Typing / deleting / pasting all come through 'input'
+    input.addEventListener('input', () => {
+      reformatPreservingCaret(input, false);
     });
 
-    input.addEventListener('focus', e => {
-      e.target.value = digits(e.target.value);
+    // On focus: show raw digits (no commas) so arrow-keys/backspace feel natural
+    input.addEventListener('focus', () => {
+      const caret = input.selectionStart ?? input.value.length;
+      const d = onlyDigits(input.value);
+      input.value = d;
+      try { input.setSelectionRange(Math.min(caret, d.length), Math.min(caret, d.length)); } catch {}
     });
 
-    input.addEventListener('blur', e => {
-      e.target.value = fmt(e.target.value);
+    // On blur: format nicely and push immediate update
+    input.addEventListener('blur', () => {
+      // format and move caret to end (standard UX on blur)
+      const d = onlyDigits(input.value);
+      input.value = formatDigits(d);
+      try { input.setSelectionRange(input.value.length, input.value.length); } catch {}
       triggerImmediate();
     });
 
-    // Extra safety: normalize after paste, then refresh
-    input.addEventListener('paste', () => {
-      requestAnimationFrame(() => {
-        input.value = fmt(input.value);
-        triggerImmediate();
-      });
+    // Allow commas to be typed without breaking (input handler will normalize)
+    input.addEventListener('keydown', (e) => {
+      if (e.key === ',' || e.key === 'Decimal') {
+        // Let it through; it will be removed by the sanitizer without moving caret weirdly
+        // No preventDefault here.
+      }
     });
   });
 })();
